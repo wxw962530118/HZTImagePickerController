@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HZTPhotoAlbumListCell">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gDb-Yh-6Hr">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-Ju-w6D">
+                        <rect key="frame" x="75" y="0.0" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="Dgc-Oz-ICQ"/>
+                            <constraint firstAttribute="height" constant="25" id="Pky-zq-F5V"/>
+                        </constraints>
+                        <state key="normal" image="no_select_icon.png"/>
+                        <connections>
+                            <action selector="chooseAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="tmH-bv-Mcn"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="gDb-Yh-6Hr" secondAttribute="trailing" id="6Uq-0H-ZYi"/>
+                <constraint firstItem="gDb-Yh-6Hr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="UBP-db-l2E"/>
+                <constraint firstItem="O2u-Ju-w6D" firstAttribute="top" secondItem="gDb-Yh-6Hr" secondAttribute="top" id="ZC2-Hs-ohv"/>
+                <constraint firstItem="gDb-Yh-6Hr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="aHA-5S-QOe"/>
+                <constraint firstAttribute="bottom" secondItem="gDb-Yh-6Hr" secondAttribute="bottom" id="l7N-vM-PeS"/>
+                <constraint firstAttribute="trailing" secondItem="O2u-Ju-w6D" secondAttribute="trailing" id="mdM-JC-RKC"/>
+            </constraints>
+            <connections>
+                <outlet property="chooseBtn" destination="O2u-Ju-w6D" id="asj-eW-qJm"/>
+                <outlet property="coverImgView" destination="gDb-Yh-6Hr" id="Yhi-dg-vaX"/>
+            </connections>
+            <point key="canvasLocation" x="140.80000000000001" y="154.72263868065968"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="no_select_icon.png" width="21" height="21"/>
+    </resources>
+</document>

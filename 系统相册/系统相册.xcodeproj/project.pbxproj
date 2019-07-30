@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC0E16D822EFEC5D009A9F82 /* HZTTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */; };
+		AC0E16D922EFEC5D009A9F82 /* HZTMacroNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */; };
+		AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16C022EFEC5D009A9F82 /* HZTAssetModel.m */; };
+		AC0E16DB22EFEC5D009A9F82 /* no_select_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0E16C322EFEC5D009A9F82 /* no_select_icon@2x.png */; };
+		AC0E16DC22EFEC5D009A9F82 /* select_img_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0E16C422EFEC5D009A9F82 /* select_img_icon@2x.png */; };
+		AC0E16DD22EFEC5D009A9F82 /* HZTPhotoGroupListController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16C622EFEC5D009A9F82 /* HZTPhotoGroupListController.m */; };
+		AC0E16DE22EFEC5D009A9F82 /* HZTPhotoAlbumListController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16C822EFEC5D009A9F82 /* HZTPhotoAlbumListController.m */; };
+		AC0E16DF22EFEC5D009A9F82 /* HZTImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16C922EFEC5D009A9F82 /* HZTImagePickerController.m */; };
+		AC0E16E022EFEC5D009A9F82 /* HZTPhotoAlbumListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16CE22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.m */; };
+		AC0E16E122EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0E16CF22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib */; };
+		AC0E16E222EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16D022EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m */; };
+		AC0E16E322EFEC5D009A9F82 /* HZTPhotoAlbumListView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16D222EFEC5D009A9F82 /* HZTPhotoAlbumListView.m */; };
+		AC0E16E422EFEC5D009A9F82 /* HZTPhotoGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0E16D322EFEC5D009A9F82 /* HZTPhotoGroupCell.xib */; };
+		AC0E16E522EFEC5D009A9F82 /* HZTPhotoGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16D422EFEC5D009A9F82 /* HZTPhotoGroupCell.m */; };
+		AC0E16E722EFECB2009A9F82 /* HZTPhotoGroupListView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16E622EFECB1009A9F82 /* HZTPhotoGroupListView.m */; };
+		AC0E16EA22EFEF04009A9F82 /* ToolBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16E922EFEF04009A9F82 /* ToolBaseClass.m */; };
+		AC30E17E22EED1DC00FF14CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30E17D22EED1DC00FF14CC /* AppDelegate.m */; };
+		AC30E18422EED1DD00FF14CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18222EED1DD00FF14CC /* Main.storyboard */; };
+		AC30E18622EED1DF00FF14CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18522EED1DF00FF14CC /* Assets.xcassets */; };
+		AC30E18922EED1DF00FF14CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18722EED1DF00FF14CC /* LaunchScreen.storyboard */; };
+		AC30E18C22EED1DF00FF14CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30E18B22EED1DF00FF14CC /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AC0E16B922EFEC5D009A9F82 /* HZTTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTTestViewController.h; sourceTree = "<group>"; };
+		AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTTestViewController.m; sourceTree = "<group>"; };
+		AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTMacroNotifications.m; sourceTree = "<group>"; };
+		AC0E16BE22EFEC5D009A9F82 /* HZTMacroNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTMacroNotifications.h; sourceTree = "<group>"; };
+		AC0E16C022EFEC5D009A9F82 /* HZTAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTAssetModel.m; sourceTree = "<group>"; };
+		AC0E16C122EFEC5D009A9F82 /* HZTAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTAssetModel.h; sourceTree = "<group>"; };
+		AC0E16C322EFEC5D009A9F82 /* no_select_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_select_icon@2x.png"; sourceTree = "<group>"; };
+		AC0E16C422EFEC5D009A9F82 /* select_img_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select_img_icon@2x.png"; sourceTree = "<group>"; };
+		AC0E16C622EFEC5D009A9F82 /* HZTPhotoGroupListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoGroupListController.m; sourceTree = "<group>"; };
+		AC0E16C722EFEC5D009A9F82 /* HZTImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTImagePickerController.h; sourceTree = "<group>"; };
+		AC0E16C822EFEC5D009A9F82 /* HZTPhotoAlbumListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoAlbumListController.m; sourceTree = "<group>"; };
+		AC0E16C922EFEC5D009A9F82 /* HZTImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTImagePickerController.m; sourceTree = "<group>"; };
+		AC0E16CA22EFEC5D009A9F82 /* HZTPhotoGroupListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoGroupListController.h; sourceTree = "<group>"; };
+		AC0E16CB22EFEC5D009A9F82 /* HZTPhotoAlbumListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoAlbumListController.h; sourceTree = "<group>"; };
+		AC0E16CD22EFEC5D009A9F82 /* HZTPhotoGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoGroupCell.h; sourceTree = "<group>"; };
+		AC0E16CE22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoAlbumListCell.m; sourceTree = "<group>"; };
+		AC0E16CF22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZTPhotoAlbumListCell.xib; sourceTree = "<group>"; };
+		AC0E16D022EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoAlbumListFlowLayout.m; sourceTree = "<group>"; };
+		AC0E16D122EFEC5D009A9F82 /* HZTPhotoGroupListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoGroupListView.h; sourceTree = "<group>"; };
+		AC0E16D222EFEC5D009A9F82 /* HZTPhotoAlbumListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoAlbumListView.m; sourceTree = "<group>"; };
+		AC0E16D322EFEC5D009A9F82 /* HZTPhotoGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZTPhotoGroupCell.xib; sourceTree = "<group>"; };
+		AC0E16D422EFEC5D009A9F82 /* HZTPhotoGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoGroupCell.m; sourceTree = "<group>"; };
+		AC0E16D522EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoAlbumListFlowLayout.h; sourceTree = "<group>"; };
+		AC0E16D622EFEC5D009A9F82 /* HZTPhotoAlbumListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoAlbumListCell.h; sourceTree = "<group>"; };
+		AC0E16D722EFEC5D009A9F82 /* HZTPhotoAlbumListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTPhotoAlbumListView.h; sourceTree = "<group>"; };
+		AC0E16E622EFECB1009A9F82 /* HZTPhotoGroupListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoGroupListView.m; sourceTree = "<group>"; };
+		AC0E16E822EFEF04009A9F82 /* ToolBaseClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolBaseClass.h; sourceTree = "<group>"; };
+		AC0E16E922EFEF04009A9F82 /* ToolBaseClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolBaseClass.m; sourceTree = "<group>"; };
+		AC30E17922EED1DC00FF14CC /* 系统相册.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "系统相册.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC30E17C22EED1DC00FF14CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AC30E17D22EED1DC00FF14CC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AC30E18322EED1DD00FF14CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AC30E18522EED1DF00FF14CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC30E18822EED1DF00FF14CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AC30E18A22EED1DF00FF14CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC30E18B22EED1DF00FF14CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC30E17622EED1DC00FF14CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC0E16B822EFEC5D009A9F82 /* TestCode */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16B922EFEC5D009A9F82 /* HZTTestViewController.h */,
+				AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */,
+			);
+			path = TestCode;
+			sourceTree = "<group>";
+		};
+		AC0E16BB22EFEC5D009A9F82 /* HZTImagePickerAbout */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16C222EFEC5D009A9F82 /* Resource */,
+				AC0E16C522EFEC5D009A9F82 /* Controllers */,
+				AC0E16BC22EFEC5D009A9F82 /* Config */,
+				AC0E16BF22EFEC5D009A9F82 /* Models */,
+				AC0E16CC22EFEC5D009A9F82 /* Views */,
+			);
+			path = HZTImagePickerAbout;
+			sourceTree = "<group>";
+		};
+		AC0E16BC22EFEC5D009A9F82 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */,
+				AC0E16BE22EFEC5D009A9F82 /* HZTMacroNotifications.h */,
+				AC0E16E822EFEF04009A9F82 /* ToolBaseClass.h */,
+				AC0E16E922EFEF04009A9F82 /* ToolBaseClass.m */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		AC0E16BF22EFEC5D009A9F82 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16C122EFEC5D009A9F82 /* HZTAssetModel.h */,
+				AC0E16C022EFEC5D009A9F82 /* HZTAssetModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AC0E16C222EFEC5D009A9F82 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16C322EFEC5D009A9F82 /* no_select_icon@2x.png */,
+				AC0E16C422EFEC5D009A9F82 /* select_img_icon@2x.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		AC0E16C522EFEC5D009A9F82 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16C722EFEC5D009A9F82 /* HZTImagePickerController.h */,
+				AC0E16CA22EFEC5D009A9F82 /* HZTPhotoGroupListController.h */,
+				AC0E16CB22EFEC5D009A9F82 /* HZTPhotoAlbumListController.h */,
+				AC0E16C622EFEC5D009A9F82 /* HZTPhotoGroupListController.m */,
+				AC0E16C822EFEC5D009A9F82 /* HZTPhotoAlbumListController.m */,
+				AC0E16C922EFEC5D009A9F82 /* HZTImagePickerController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AC0E16CC22EFEC5D009A9F82 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16E622EFECB1009A9F82 /* HZTPhotoGroupListView.m */,
+				AC0E16CD22EFEC5D009A9F82 /* HZTPhotoGroupCell.h */,
+				AC0E16CE22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.m */,
+				AC0E16CF22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib */,
+				AC0E16D022EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m */,
+				AC0E16D122EFEC5D009A9F82 /* HZTPhotoGroupListView.h */,
+				AC0E16D222EFEC5D009A9F82 /* HZTPhotoAlbumListView.m */,
+				AC0E16D322EFEC5D009A9F82 /* HZTPhotoGroupCell.xib */,
+				AC0E16D422EFEC5D009A9F82 /* HZTPhotoGroupCell.m */,
+				AC0E16D522EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.h */,
+				AC0E16D622EFEC5D009A9F82 /* HZTPhotoAlbumListCell.h */,
+				AC0E16D722EFEC5D009A9F82 /* HZTPhotoAlbumListView.h */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AC30E17022EED1DC00FF14CC = {
+			isa = PBXGroup;
+			children = (
+				AC30E17B22EED1DC00FF14CC /* 系统相册 */,
+				AC30E17A22EED1DC00FF14CC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AC30E17A22EED1DC00FF14CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC30E17922EED1DC00FF14CC /* 系统相册.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC30E17B22EED1DC00FF14CC /* 系统相册 */ = {
+			isa = PBXGroup;
+			children = (
+				AC0E16B822EFEC5D009A9F82 /* TestCode */,
+				AC0E16BB22EFEC5D009A9F82 /* HZTImagePickerAbout */,
+				AC30E17C22EED1DC00FF14CC /* AppDelegate.h */,
+				AC30E17D22EED1DC00FF14CC /* AppDelegate.m */,
+				AC30E18222EED1DD00FF14CC /* Main.storyboard */,
+				AC30E18522EED1DF00FF14CC /* Assets.xcassets */,
+				AC30E18722EED1DF00FF14CC /* LaunchScreen.storyboard */,
+				AC30E18A22EED1DF00FF14CC /* Info.plist */,
+				AC30E18B22EED1DF00FF14CC /* main.m */,
+			);
+			path = "系统相册";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC30E17822EED1DC00FF14CC /* 系统相册 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC30E18F22EED1DF00FF14CC /* Build configuration list for PBXNativeTarget "系统相册" */;
+			buildPhases = (
+				AC30E17522EED1DC00FF14CC /* Sources */,
+				AC30E17622EED1DC00FF14CC /* Frameworks */,
+				AC30E17722EED1DC00FF14CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "系统相册";
+			productName = "系统相册";
+			productReference = AC30E17922EED1DC00FF14CC /* 系统相册.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC30E17122EED1DC00FF14CC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "王新伟";
+				TargetAttributes = {
+					AC30E17822EED1DC00FF14CC = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = AC30E17422EED1DC00FF14CC /* Build configuration list for PBXProject "系统相册" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC30E17022EED1DC00FF14CC;
+			productRefGroup = AC30E17A22EED1DC00FF14CC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC30E17822EED1DC00FF14CC /* 系统相册 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC30E17722EED1DC00FF14CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC30E18922EED1DF00FF14CC /* LaunchScreen.storyboard in Resources */,
+				AC30E18622EED1DF00FF14CC /* Assets.xcassets in Resources */,
+				AC0E16DB22EFEC5D009A9F82 /* no_select_icon@2x.png in Resources */,
+				AC0E16E122EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib in Resources */,
+				AC0E16E422EFEC5D009A9F82 /* HZTPhotoGroupCell.xib in Resources */,
+				AC0E16DC22EFEC5D009A9F82 /* select_img_icon@2x.png in Resources */,
+				AC30E18422EED1DD00FF14CC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC30E17522EED1DC00FF14CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC0E16DF22EFEC5D009A9F82 /* HZTImagePickerController.m in Sources */,
+				AC0E16D922EFEC5D009A9F82 /* HZTMacroNotifications.m in Sources */,
+				AC0E16DD22EFEC5D009A9F82 /* HZTPhotoGroupListController.m in Sources */,
+				AC0E16E022EFEC5D009A9F82 /* HZTPhotoAlbumListCell.m in Sources */,
+				AC30E18C22EED1DF00FF14CC /* main.m in Sources */,
+				AC30E17E22EED1DC00FF14CC /* AppDelegate.m in Sources */,
+				AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */,
+				AC0E16DE22EFEC5D009A9F82 /* HZTPhotoAlbumListController.m in Sources */,
+				AC0E16E322EFEC5D009A9F82 /* HZTPhotoAlbumListView.m in Sources */,
+				AC0E16E722EFECB2009A9F82 /* HZTPhotoGroupListView.m in Sources */,
+				AC0E16D822EFEC5D009A9F82 /* HZTTestViewController.m in Sources */,
+				AC0E16E222EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m in Sources */,
+				AC0E16E522EFEC5D009A9F82 /* HZTPhotoGroupCell.m in Sources */,
+				AC0E16EA22EFEF04009A9F82 /* ToolBaseClass.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AC30E18222EED1DD00FF14CC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC30E18322EED1DD00FF14CC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AC30E18722EED1DF00FF14CC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC30E18822EED1DF00FF14CC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AC30E18D22EED1DF00FF14CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AC30E18E22EED1DF00FF14CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AC30E19022EED1DF00FF14CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "系统相册/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "haizitong.----";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC30E19122EED1DF00FF14CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "系统相册/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "haizitong.----";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC30E17422EED1DC00FF14CC /* Build configuration list for PBXProject "系统相册" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC30E18D22EED1DF00FF14CC /* Debug */,
+				AC30E18E22EED1DF00FF14CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC30E18F22EED1DF00FF14CC /* Build configuration list for PBXNativeTarget "系统相册" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC30E19022EED1DF00FF14CC /* Debug */,
+				AC30E19122EED1DF00FF14CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC30E17122EED1DC00FF14CC /* Project object */;
+}

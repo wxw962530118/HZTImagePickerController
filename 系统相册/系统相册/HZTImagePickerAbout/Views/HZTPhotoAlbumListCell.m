@@ -7,7 +7,7 @@
 //
 
 #import "HZTPhotoAlbumListCell.h"
-
+#import "HZTImageManager.h"
 @interface HZTPhotoAlbumListCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *coverImgView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
@@ -23,7 +23,9 @@
 
 -(void)setAssetModel:(HZTAssetModel *)assetModel{
     _assetModel = assetModel;
-    self.coverImgView.image = assetModel.coverImage;
+    [[HZTImageManager manager] getPostImageWithAsset:assetModel.asset completion:^(UIImage * _Nonnull postImage) {
+        self.coverImgView.image = postImage;
+    }];
     [self.chooseBtn setImage:[UIImage imageNamed:assetModel.isSelected ? @"select_img_icon" : @"no_select_icon"] forState:UIControlStateNormal];
 }
 

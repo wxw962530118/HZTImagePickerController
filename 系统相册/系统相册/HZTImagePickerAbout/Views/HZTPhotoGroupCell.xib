@@ -11,13 +11,49 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HZTPhotoGroupCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="h9F-eb-gei" customClass="HZTPhotoGroupCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="h9F-eb-gei" id="PVG-8M-oxK">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xWm-DD-DAh">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="60.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="W3u-1L-fdf"/>
+                            <constraint firstAttribute="width" constant="60" id="j3n-gz-Hxg"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oge-w6-10U">
+                        <rect key="frame" x="129" y="20.5" width="40" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVv-UY-pyA">
+                        <rect key="frame" x="70" y="19.5" width="44" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="oge-w6-10U" firstAttribute="centerY" secondItem="SVv-UY-pyA" secondAttribute="centerY" id="AxS-v1-zXc"/>
+                    <constraint firstItem="oge-w6-10U" firstAttribute="leading" secondItem="SVv-UY-pyA" secondAttribute="trailing" constant="15" id="BKm-7Z-doq"/>
+                    <constraint firstItem="SVv-UY-pyA" firstAttribute="leading" secondItem="xWm-DD-DAh" secondAttribute="trailing" constant="10" id="CWq-Yh-Nnq"/>
+                    <constraint firstItem="SVv-UY-pyA" firstAttribute="centerY" secondItem="xWm-DD-DAh" secondAttribute="centerY" id="Eu8-wW-uhZ"/>
+                    <constraint firstItem="xWm-DD-DAh" firstAttribute="leading" secondItem="PVG-8M-oxK" secondAttribute="leading" id="Hfk-Ar-qgB"/>
+                    <constraint firstAttribute="bottom" secondItem="xWm-DD-DAh" secondAttribute="bottom" id="kDk-dX-z3O"/>
+                    <constraint firstItem="xWm-DD-DAh" firstAttribute="top" secondItem="PVG-8M-oxK" secondAttribute="top" id="m7Y-s9-ZrM"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="groupImageView" destination="xWm-DD-DAh" id="Kie-Yf-nmS"/>
+                <outlet property="groupNameLabel" destination="SVv-UY-pyA" id="t4k-96-CU0"/>
+                <outlet property="photoCntLabel" destination="oge-w6-10U" id="TuG-M8-FMW"/>
+            </connections>
+            <point key="canvasLocation" x="-166.40000000000001" y="106.14692653673164"/>
         </tableViewCell>
     </objects>
 </document>

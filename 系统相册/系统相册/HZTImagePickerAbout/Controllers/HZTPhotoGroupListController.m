@@ -27,25 +27,33 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"照片";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancelCallBack)];
-    [self defaultSeletedFirstAlbum];
+    [self addGroupListView];
 }
 
--(void)defaultSeletedFirstAlbum{
-    HZTPhotoAlbumListController * vc = [HZTPhotoAlbumListController new];
-    vc.assetsFilter = [ALAssetsFilter allPhotos];
-    vc.showEmptyGroups = NO;
-    vc.m_delegate = self;
-    vc.multipleSelection = true;
-    vc.rowCount = 4;
-    vc.maximumNumberOfSelection = 5;
-    vc.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        return YES;
-    }];
-    [self.navigationController pushViewController:vc animated:NO];
+-(void)addGroupListView{
+    if (!_groupListView) {
+        _groupListView = [[HZTPhotoGroupListView alloc] initWithFrame:self.view.frame];
+        _groupListView.my_delegate = self;
+        [_groupListView setGroupWithAssetsFilter:[ALAssetsFilter allAssets]];
+        [self.view addSubview:_groupListView];
+    }
 }
 
 -(void)cancelCallBack{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark --- 具体相册分组选择回调
+-(void)didSelectGroup:(ALAssetsGroup *)assetsGroup isAnimation:(BOOL)isAnimation{
+    HZTPhotoAlbumListController * vc = [HZTPhotoAlbumListController new];
+    vc.isTopFilter = NO;
+    vc.assetsGroup = assetsGroup;
+    vc.assetsFilter = [ALAssetsFilter allPhotos];
+    vc.m_delegate = self;
+    vc.multipleSelection = true;
+    vc.rowCount = 4;
+    vc.maximumNumberOfSelection = 5;
+    [self.navigationController pushViewController:vc animated:isAnimation];
 }
 
 -(void)dealloc{

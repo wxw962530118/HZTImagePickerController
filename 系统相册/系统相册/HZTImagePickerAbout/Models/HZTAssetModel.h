@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSInteger,AssetType){
     AssetType_Image = 0,
@@ -15,6 +16,8 @@ typedef NS_ENUM(NSInteger,AssetType){
 };
 
 @interface HZTAssetModel : NSObject
+/***/
+@property (nonatomic, strong) PHAsset * asset;
 /**是否选中*/
 @property (nonatomic, assign)BOOL isSelected;
 /**视频的时长*/
@@ -23,16 +26,12 @@ typedef NS_ENUM(NSInteger,AssetType){
 @property (nonatomic, strong) UIImage * coverImage;
 /***/
 @property (nonatomic, assign) AssetType type;
-/**本地视频的URL*/
-@property (nonatomic, copy) NSURL * url;
 /***/
 @property (nonatomic, copy) NSString * videoUrl;
 /**选择图片时候带动画*/
 @property (nonatomic, assign) BOOL isNotAnimation;
-/**班级学生的相册链接*/
-@property (nonatomic, copy) NSString * imageUrl;
-/***/
-@property (nonatomic, assign) BOOL isAdd;
+/**是否为拍照*/
+@property (nonatomic, assign) BOOL isCameraRoll;
 @end
 
 NS_ASSUME_NONNULL_END

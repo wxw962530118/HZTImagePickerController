@@ -13,6 +13,8 @@
 #import "HZTPhotoGroupListView.h"
 #import "HZTMacroNotifications.h"
 #import "ToolBaseClass.h"
+#import <Photos/Photos.h>
+#import "HZTImageManager.h"
 @interface HZTPhotoAlbumListController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,HZTPhotoGroupViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) id<UIGestureRecognizerDelegate> originalDelegate;
 /***/
@@ -23,8 +25,12 @@
 @property (strong, nonatomic) NSMutableArray <HZTAssetModel *>* listDataArray;
 /**完成按钮*/
 @property (nonatomic, strong) UIButton * completeBtn;
+/**预览按钮*/
+@property (nonatomic, strong) UIButton * previewBtn;
 /***/
 @property (nonatomic, strong) NSMutableArray <HZTAssetModel *>* selectedArray;
+/***/
+@property (nonatomic, strong) UIActivityIndicatorView * indicatorView;
 @end
 
 @implementation HZTPhotoAlbumListController
@@ -48,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self configNavItem];
     [self addBottomToolView];
 }
@@ -73,14 +80,30 @@
         [self.view addSubview:toolView];
         _completeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_completeBtn addTarget:self action:@selector(clickCompleted) forControlEvents:UIControlEventTouchUpInside];
+        _completeBtn.backgroundColor = [UIColor orangeColor];
+        _completeBtn.layer.cornerRadius = 3;
         [_completeBtn setTitle:@"完成" forState:UIControlStateNormal];
         _completeBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-        CGFloat btnW = [ToolBaseClass getWidthWithString:[_completeBtn currentTitle] font:_completeBtn.titleLabel.font];
-        _completeBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - btnW - 10, 10,btnW, toolHeight - 20);
+        CGFloat btnW = 55;
+        _completeBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - btnW - 10, 10,btnW,30);
         _completeBtn.enabled = NO;
         [_completeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [toolView addSubview:_completeBtn];
+        
+        _previewBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_previewBtn addTarget:self action:@selector(clickPreview) forControlEvents:UIControlEventTouchUpInside];
+        [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
+        _previewBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        _previewBtn.frame = CGRectMake(10, 10,35, 30);
+        _previewBtn.enabled = NO;
+        [_previewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [toolView addSubview:_previewBtn];
     }
+}
+
+-(void)setRowCount:(NSInteger)rowCount{
+    _rowCount = rowCount;
+    [HZTImageManager manager].columnNumber = rowCount;
 }
 
 -(HZTPhotoAlbumListView *)listView{
@@ -117,79 +140,71 @@
     return _selectedArray;
 }
 
+-(UIActivityIndicatorView *)indicatorView{
+    if (!_indicatorView) {
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 100)/2, ([UIScreen mainScreen].bounds.size.height - 100) /2, 100, 100);
+        [[UIApplication sharedApplication].delegate.window addSubview:_indicatorView];
+    }
+    return _indicatorView;
+}
 
 -(void)setAssetsFilter:(ALAssetsFilter *)assetsFilter{
     _assetsFilter = assetsFilter;
-    [self.groupListView setGroupWithAssetsFilter:assetsFilter];
+    if (self.isTopFilter) {
+        [self.groupListView setGroupWithAssetsFilter:assetsFilter];
+    }else{
+        [self didSelectGroup:self.assetsGroup];
+    }
 }
 
 #pragma mark --- 选中分组 本地相册
 - (void)didSelectGroup:(ALAssetsGroup *)assetsGroup {
-    //[self hidenGroupView];
-    //[self showLoadingAnimation];
+    [self.indicatorView startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadAssets:assetsGroup];
     });
 }
 
+/**判断是否是相机胶卷*/
+- (BOOL)isCameraRollAlbum:(NSString *)albumName{
+    return [albumName isEqualToString:@"Camera Roll"] || [albumName isEqualToString:@"相机胶卷"] || [albumName isEqualToString:@"所有照片"] || [albumName isEqualToString:@"All Photos"];
+}
+
 #pragma mark --- 从系统相册加载图片
 - (void)loadAssets:(ALAssetsGroup *)assetsGroup {
+    __weak typeof(self) weakSelf = self;
     [self.selectedItems removeAllObjects];
     [self.listDataArray removeAllObjects];
-    NSMutableArray * tempList = [[NSMutableArray alloc] init];
-    /**默认第一个为相机按钮*/
-    //[tempList addObject:[KEVThemeManager imageNamed:self.photoImageName]];
-    ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
-        if (asset) {
-            [tempList addObject:asset];
-        } else if (tempList.count > 0) {
-            /**排序*/
-            NSArray * sortedList = [tempList sortedArrayUsingComparator:^NSComparisonResult(ALAsset *first, ALAsset *second) {
-                if ([first isKindOfClass:[UIImage class]]) {
-                    return NSOrderedAscending;
-                }
-                id firstData = [first valueForProperty:ALAssetPropertyDate];
-                id secondData = [second valueForProperty:ALAssetPropertyDate];
-                /**降序*/
-                return [secondData compare:firstData];
-            }];
-            for (int i = 0; i< sortedList.count; i++) {
-                HZTAssetModel * model = [[HZTAssetModel alloc] init];
-                ALAsset * asset = sortedList[i];
-                if (![asset isKindOfClass:[UIImage class]]) {
-                    model.coverImage = [UIImage imageWithCGImage:asset.aspectRatioThumbnail];
+    PHFetchOptions * option = [[PHFetchOptions alloc] init];
+    option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
+    PHFetchResult<PHAssetCollection *> *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    for (PHAssetCollection *collection in smartAlbums){
+        if (![collection isKindOfClass:[PHAssetCollection class]]){
+            /**有可能是PHCollectionList类的的对象，过滤掉*/
+            continue;
+        }
+        if ([self isCameraRollAlbum:collection.localizedTitle]){
+            /**测试数据*/
+            PHFetchResult<PHAsset *> * fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+            NSLog(@"PHFetchResult:%@",fetchResult);
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [fetchResult enumerateObjectsUsingBlock:^(PHAsset * asset, NSUInteger idx, BOOL *_Nonnull stop) {
+                    HZTAssetModel * model = [[HZTAssetModel alloc] init];
+                    model.asset = asset;
                     model.isSelected = false;
-                    model.durationValue = [[asset valueForProperty:ALAssetPropertyDuration] doubleValue];
-                    model.type = [asset valueForProperty:ALAssetPropertyType] == ALAssetTypeVideo ? AssetType_Video : AssetType_Image;
-                    model.videoUrl = model.type == AssetType_Video ? [NSString stringWithFormat:@"%@",[[asset defaultRepresentation] url]] : @"";
-                    model.isAdd = false;
-                    [self.listDataArray addObject:model];
-                }else{
-                    model.isAdd = true;
-                    model.coverImage = sortedList[i];
-                    model.isSelected = false;
-                    model.type = AssetType_Image;
-                    [self.listDataArray addObject:model];
-                }
-            }
-            /**屏蔽超过5分钟的视频*/
-            [self.listDataArray enumerateObjectsUsingBlock:^(HZTAssetModel * asset, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (![asset isKindOfClass:[UIImage class]]) {
-                    if (asset.type == AssetType_Video) {
-                        /**过滤超过一定时长的数据*/
-                    }
-                }
-            }];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                /**数据都处理好之后刷新*/
-                //[self hideLoadingAnimation];
-                [self.listView reloadData];
-                [self.listView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-                self.navigationItem.title = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+                    model.isCameraRoll = false;
+                    [weakSelf.listDataArray addObject:model];
+                }];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.indicatorView stopAnimating];
+                    [weakSelf.listView reloadData];
+                    [weakSelf.listView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+                    weakSelf.navigationItem.title = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+                });
             });
         }
-    };
-    [assetsGroup enumerateAssetsUsingBlock:resultsBlock];
+    }
 }
 
 #pragma mark - uicollectionDelegate
@@ -200,6 +215,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self) weakSelf = self;
     HZTPhotoAlbumListCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HZTPhotoAlbumListCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
     cell.assetModel = self.listDataArray[indexPath.row];
     cell.selectedItemBlock = ^(HZTAssetModel *asset) {
         [weakSelf.selectedArray removeAllObjects];
@@ -217,13 +233,8 @@
                 }
             }
         }
-        [self.completeBtn setTitle:[NSString stringWithFormat:@"完成 %ld",self.selectedArray.count] forState:UIControlStateNormal];
-        CGFloat btnW = [ToolBaseClass getWidthWithString:[self.completeBtn currentTitle] font:self.completeBtn.titleLabel.font];
-        CGRect frame = self.completeBtn.frame;
-        frame.origin.x = [UIScreen mainScreen].bounds.size.width - btnW - 10;
-        frame.size.width = btnW;
-        weakSelf.completeBtn.frame = frame;
-        [weakSelf.listView reloadData];
+        [weakSelf.completeBtn setTitle:self.selectedArray.count ? [NSString stringWithFormat:@"完成 %ld",self.selectedArray.count] : @"完成" forState:UIControlStateNormal];
+        [weakSelf.listView reloadItemsAtIndexPaths:@[indexPath]];
     };
     return cell;
 }
@@ -248,6 +259,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     /**进入预览页*/
+    
+}
+
+#pragma mark --- 进入预览页
+-(void)clickPreview{
     
 }
 

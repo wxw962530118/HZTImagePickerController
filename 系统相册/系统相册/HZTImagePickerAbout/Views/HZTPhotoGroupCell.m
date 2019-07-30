@@ -8,17 +8,25 @@
 
 #import "HZTPhotoGroupCell.h"
 
+@interface HZTPhotoGroupCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *groupImageView;
+@property (weak, nonatomic) IBOutlet UILabel *groupNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *photoCntLabel;
+@end
+
 @implementation HZTPhotoGroupCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void)setAssetsGroup:(ALAssetsGroup *)assetsGroup{
+    _assetsGroup = assetsGroup;
+    CGImageRef posterImage = assetsGroup.posterImage;
+    size_t height = CGImageGetHeight(posterImage);
+    float scale = height / 78.0f;
+    self.groupImageView.image = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
+    self.groupNameLabel.text = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
+    self.photoCntLabel.text = [NSString stringWithFormat:@"(%ld)",(long)[assetsGroup numberOfAssets]];
 }
-
 @end

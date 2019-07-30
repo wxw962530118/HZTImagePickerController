@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <AssetsLibrary/AssetsLibrary.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HZTPhotoGroupListController : UIViewController
-
+/**资源过滤*/
+@property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 @end
 
 NS_ASSUME_NONNULL_END

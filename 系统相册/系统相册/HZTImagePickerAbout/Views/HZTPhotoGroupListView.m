@@ -14,6 +14,8 @@
 @property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
 /***/
 @property (nonatomic, strong) NSMutableArray * groups;
+/***/
+@property (nonatomic, assign) BOOL isFirstLoad;
 @end
 
 @implementation HZTPhotoGroupListView
@@ -33,9 +35,10 @@
 }
 
 - (void)configInfo {
+    self.isFirstLoad = YES;
     self.delegate = self;
     self.dataSource = self;
-    [self registerClass:[HZTPhotoGroupCell class] forCellReuseIdentifier:@"HZTPhotoGroupCell"];
+    [self registerNib:[UINib nibWithNibName:@"HZTPhotoGroupCell" bundle:nil] forCellReuseIdentifier:@"HZTPhotoGroupCell"];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1.0];
 }
@@ -47,7 +50,7 @@
         if (group) {
             /**选出资源 allVideos allAssets*/
             [group setAssetsFilter:assetsFilter];
-            if (group.numberOfAssets > 0 || ((HZTPhotoAlbumListController *)self->_my_delegate).showEmptyGroups){
+            if (group.numberOfAssets > 0){
                 if ([[group valueForProperty:ALAssetsGroupPropertyType] intValue] == ALAssetsGroupSavedPhotos){
                     [self.groups insertObject:group atIndex:0];
                 } else if ([[group valueForProperty:ALAssetsGroupPropertyType] intValue] == ALAssetsGroupPhotoStream && self.groups.count > 0){
@@ -85,9 +88,8 @@
 - (void)dataReload{
     /**没有图片*/
     if (self.groups.count == 0) [self showNoAssets];
-    if (self.groups.count >0 && [_my_delegate respondsToSelector:@selector(didSelectGroup:)]) {
-        [_my_delegate didSelectGroup:self.groups[0]];
-    }
+    /**默认选中第一组*/
+    [self tableView:self didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self reloadData];
 }
 
@@ -98,10 +100,7 @@
 #pragma mark - uitableviewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HZTPhotoGroupCell * cell = [tableView dequeueReusableCellWithIdentifier:@"HZTPhotoGroupCell"];
-    //[cell bind:[self.groups objectAtIndex:indexPath.row]];
-    if (indexPath.row == self.selectIndex) {
-        cell.backgroundColor = [UIColor lightGrayColor];
-    }
+    cell.assetsGroup = [self.groups objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -118,9 +117,10 @@
     self.selectIndex = indexPath.row;
     [self reloadData];
     ALAssetsGroup *group = [self.groups objectAtIndex:indexPath.row];
-    if ([_my_delegate respondsToSelector:@selector(didSelectGroup:)]) {
-        [_my_delegate didSelectGroup:group];
+    if ([_my_delegate respondsToSelector:@selector(didSelectGroup:isAnimation:)]) {
+        [_my_delegate didSelectGroup:group isAnimation:!self.isFirstLoad];
     }
+    self.isFirstLoad = NO;
 }
 
 #pragma mark - getter/setter

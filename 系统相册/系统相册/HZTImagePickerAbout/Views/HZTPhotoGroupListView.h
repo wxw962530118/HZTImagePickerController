@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol HZTPhotoGroupViewDelegate <NSObject>
 /**选中系统相册分组 assetsGroup 相册*/
-- (void)didSelectGroup:(ALAssetsGroup *)assetsGroup;
+- (void)didSelectGroup:(ALAssetsGroup *)assetsGroup isAnimation:(BOOL)isAnimation;
 @end
 /**分组的列表*/
 @interface HZTPhotoGroupListView : UITableView

@@ -27,6 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)photoPickerDidSelectionFilter:(HZTPhotoAlbumListController *)picker;
 @end
 @interface HZTPhotoAlbumListController : UIViewController
+/**照片筛选在顶部*/
+@property (nonatomic, assign) BOOL isTopFilter;
+/***/
+@property (nonatomic, strong) ALAssetsGroup * assetsGroup;
 /***strong 修饰 处理 delegate 为nil的问题*/
 @property (strong, nonatomic) id<HZTPhotoPickerDelegate> m_delegate;
 /**选择过滤*/

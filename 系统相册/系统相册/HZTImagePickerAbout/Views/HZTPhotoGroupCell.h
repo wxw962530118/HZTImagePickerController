@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <AssetsLibrary/AssetsLibrary.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HZTPhotoGroupCell : UITableViewCell
-
+/***/
+@property (nonatomic, strong) ALAssetsGroup * assetsGroup;
 @end
 
 NS_ASSUME_NONNULL_END

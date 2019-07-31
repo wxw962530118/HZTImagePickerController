@@ -11,8 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HZTPhotoGroupListController : UIViewController
-/**资源过滤*/
-@property (nonatomic, strong) ALAssetsFilter *assetsFilter;
+/**选择图片*/
+@property (nonatomic, assign) BOOL isChoosePhoto;
+/**选择视频*/
+@property (nonatomic, assign) BOOL isChooseVideo;
 @end
 
 NS_ASSUME_NONNULL_END

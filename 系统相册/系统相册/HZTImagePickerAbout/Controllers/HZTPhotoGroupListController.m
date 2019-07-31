@@ -9,6 +9,8 @@
 #import "HZTPhotoGroupListController.h"
 #import "HZTPhotoAlbumListController.h"
 #import "HZTPhotoGroupListView.h"
+#import "HZTImageManager.h"
+#import <Photos/Photos.h>
 @interface HZTPhotoGroupListController ()<HZTPhotoGroupViewDelegate,HZTPhotoPickerDelegate>
 /***/
 @property (nonatomic, strong) HZTPhotoGroupListView * groupListView;
@@ -27,16 +29,19 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"照片";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:self action:@selector(cancelCallBack)];
-    [self addGroupListView];
+    [[HZTImageManager manager] getAllAlbumsContentImage:YES contentVideo:YES completion:^(NSArray<HZTPhotoGroupModel *> *fetchResults) {
+        self.groupListView.fetchResults = fetchResults;
+        [self.groupListView reloadData];
+    }];
 }
 
--(void)addGroupListView{
+-(HZTPhotoGroupListView *)groupListView{
     if (!_groupListView) {
         _groupListView = [[HZTPhotoGroupListView alloc] initWithFrame:self.view.frame];
         _groupListView.my_delegate = self;
-        [_groupListView setGroupWithAssetsFilter:[ALAssetsFilter allAssets]];
         [self.view addSubview:_groupListView];
     }
+    return _groupListView;
 }
 
 -(void)cancelCallBack{
@@ -44,11 +49,10 @@
 }
 
 #pragma mark --- 具体相册分组选择回调
--(void)didSelectGroup:(ALAssetsGroup *)assetsGroup isAnimation:(BOOL)isAnimation{
+-(void)didSelectGroup:(HZTPhotoGroupModel *)groupModel isAnimation:(BOOL)isAnimation{
     HZTPhotoAlbumListController * vc = [HZTPhotoAlbumListController new];
     vc.isTopFilter = NO;
-    vc.assetsGroup = assetsGroup;
-    vc.assetsFilter = [ALAssetsFilter allPhotos];
+    vc.groupModel = groupModel;
     vc.m_delegate = self;
     vc.multipleSelection = true;
     vc.rowCount = 4;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0393BB22F135C7003B6823 /* HZTPhotoGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0393BA22F135C7003B6823 /* HZTPhotoGroupModel.m */; };
 		AC0E16D822EFEC5D009A9F82 /* HZTTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */; };
 		AC0E16D922EFEC5D009A9F82 /* HZTMacroNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */; };
 		AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16C022EFEC5D009A9F82 /* HZTAssetModel.m */; };
@@ -24,6 +25,7 @@
 		AC0E16E722EFECB2009A9F82 /* HZTPhotoGroupListView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16E622EFECB1009A9F82 /* HZTPhotoGroupListView.m */; };
 		AC0E16EA22EFEF04009A9F82 /* ToolBaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16E922EFEF04009A9F82 /* ToolBaseClass.m */; };
 		AC0E16ED22F04160009A9F82 /* HZTImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16EC22F04160009A9F82 /* HZTImageManager.m */; };
+		AC0E16F022F12A14009A9F82 /* HZTFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16EF22F12A14009A9F82 /* HZTFPSLabel.m */; };
 		AC30E17E22EED1DC00FF14CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30E17D22EED1DC00FF14CC /* AppDelegate.m */; };
 		AC30E18422EED1DD00FF14CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18222EED1DD00FF14CC /* Main.storyboard */; };
 		AC30E18622EED1DF00FF14CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18522EED1DF00FF14CC /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC0393B922F135C7003B6823 /* HZTPhotoGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZTPhotoGroupModel.h; sourceTree = "<group>"; };
+		AC0393BA22F135C7003B6823 /* HZTPhotoGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoGroupModel.m; sourceTree = "<group>"; };
 		AC0E16B922EFEC5D009A9F82 /* HZTTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTTestViewController.h; sourceTree = "<group>"; };
 		AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTTestViewController.m; sourceTree = "<group>"; };
 		AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTMacroNotifications.m; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 		AC0E16E922EFEF04009A9F82 /* ToolBaseClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolBaseClass.m; sourceTree = "<group>"; };
 		AC0E16EB22F04160009A9F82 /* HZTImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZTImageManager.h; sourceTree = "<group>"; };
 		AC0E16EC22F04160009A9F82 /* HZTImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZTImageManager.m; sourceTree = "<group>"; };
+		AC0E16EE22F12A14009A9F82 /* HZTFPSLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZTFPSLabel.h; sourceTree = "<group>"; };
+		AC0E16EF22F12A14009A9F82 /* HZTFPSLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZTFPSLabel.m; sourceTree = "<group>"; };
 		AC30E17922EED1DC00FF14CC /* 系统相册.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "系统相册.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC30E17C22EED1DC00FF14CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AC30E17D22EED1DC00FF14CC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -88,6 +94,8 @@
 			children = (
 				AC0E16B922EFEC5D009A9F82 /* HZTTestViewController.h */,
 				AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */,
+				AC0E16EE22F12A14009A9F82 /* HZTFPSLabel.h */,
+				AC0E16EF22F12A14009A9F82 /* HZTFPSLabel.m */,
 			);
 			path = TestCode;
 			sourceTree = "<group>";
@@ -122,6 +130,8 @@
 			children = (
 				AC0E16C122EFEC5D009A9F82 /* HZTAssetModel.h */,
 				AC0E16C022EFEC5D009A9F82 /* HZTAssetModel.m */,
+				AC0393B922F135C7003B6823 /* HZTPhotoGroupModel.h */,
+				AC0393BA22F135C7003B6823 /* HZTPhotoGroupModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,6 +290,7 @@
 				AC30E18C22EED1DF00FF14CC /* main.m in Sources */,
 				AC30E17E22EED1DC00FF14CC /* AppDelegate.m in Sources */,
 				AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */,
+				AC0E16F022F12A14009A9F82 /* HZTFPSLabel.m in Sources */,
 				AC0E16ED22F04160009A9F82 /* HZTImageManager.m in Sources */,
 				AC0E16DE22EFEC5D009A9F82 /* HZTPhotoAlbumListController.m in Sources */,
 				AC0E16E322EFEC5D009A9F82 /* HZTPhotoAlbumListView.m in Sources */,
@@ -288,6 +299,7 @@
 				AC0E16E222EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m in Sources */,
 				AC0E16E522EFEC5D009A9F82 /* HZTPhotoGroupCell.m in Sources */,
 				AC0E16EA22EFEF04009A9F82 /* ToolBaseClass.m in Sources */,
+				AC0393BB22F135C7003B6823 /* HZTPhotoGroupModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

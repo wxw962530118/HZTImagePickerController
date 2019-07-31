@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HZTAssetModel.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+#import "HZTPhotoGroupModel.h"
 NS_ASSUME_NONNULL_BEGIN
 @class HZTPhotoAlbumListController;
 @protocol HZTPhotoPickerDelegate <NSObject>
@@ -27,29 +27,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)photoPickerDidSelectionFilter:(HZTPhotoAlbumListController *)picker;
 @end
 @interface HZTPhotoAlbumListController : UIViewController
-/**照片筛选在顶部*/
+/**照片筛选在顶部 Default is NO*/
 @property (nonatomic, assign) BOOL isTopFilter;
-/***/
-@property (nonatomic, strong) ALAssetsGroup * assetsGroup;
+/**从相册分组列表带过来的HZTPhotoGroupModel对象*/
+@property (nonatomic, strong) HZTPhotoGroupModel * groupModel;
 /***strong 修饰 处理 delegate 为nil的问题*/
 @property (strong, nonatomic) id<HZTPhotoPickerDelegate> m_delegate;
-/**选择过滤*/
-@property (nonatomic, strong) NSPredicate *selectionFilter;
-/**资源过滤*/
-@property (nonatomic, strong) ALAssetsFilter *assetsFilter;
 /**选中的项 里面是自定义的HZTAssetModel 对象*/
 @property (nonatomic, strong) NSMutableArray <HZTAssetModel *>* selectedItems;
-/**显示空相册*/
-@property (nonatomic, assign) BOOL showEmptyGroups;
-/**是否开启多选*/
+/**是否开启多选 Default is NO*/
 @property (nonatomic, assign) BOOL multipleSelection;
-/**每行显示的Item个数*/
+/**每行显示的Item个数 Default is 4*/
 @property (nonatomic, assign) NSInteger rowCount;
-/**是否选择视频*/
+/**是否选择视频 Default is NO*/
 @property (nonatomic, assign) BOOL isChooseVideo;
-/**最多选择项*/
+/**是否选择图片 Default is YES*/
+@property (nonatomic, assign) BOOL isChoosePhoto;
+/**最多选择项 Default is 9*/
 @property (nonatomic, assign) NSInteger maximumNumberOfSelection;
-/**最少选择项*/
+/**最少选择项 Default is 1*/
 @property (nonatomic, assign) NSInteger minimumNumberOfSelection;
 @end
 

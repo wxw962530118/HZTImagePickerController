@@ -31,9 +31,23 @@
 @property (nonatomic, strong) NSMutableArray <HZTAssetModel *>* selectedArray;
 /***/
 @property (nonatomic, strong) UIActivityIndicatorView * indicatorView;
+/***/
+@property (nonatomic, strong) NSIndexPath * lastIndexPath;
 @end
 
 @implementation HZTPhotoAlbumListController
+
+-(instancetype)init{
+    if (self = [super init]) {
+        self.rowCount = 4;
+        self.maximumNumberOfSelection = 9;
+        self.minimumNumberOfSelection = 1;
+        self.isTopFilter = NO;
+        self.isChoosePhoto = YES;
+        self.isChooseVideo = NO;
+    }
+    return self;
+}
 
 /**导致侧滑失效的设置
  -navigationBarHidden
@@ -54,12 +68,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    [self addPanGestureRecognizer];
     [self configNavItem];
     [self addBottomToolView];
 }
 
+#pragma mark --- 滑动选中图片
+-(void)addPanGestureRecognizer{
+   UIPanGestureRecognizer * panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                             action:@selector(onPanGes:)];
+    [self.view addGestureRecognizer:panGes];
+}
+
+#pragma mark --- 根据外界传入的分组相册数据拉取
+-(void)setGroupModel:(HZTPhotoGroupModel *)groupModel{
+    _groupModel = groupModel;
+    if (groupModel) [self didSelectGroup:self.groupModel];
+}
+
 -(void)configNavItem{
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:self action:@selector(dissMiss)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)];
 }
@@ -78,7 +106,7 @@
         UIView * toolView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height -toolHeight,[UIScreen mainScreen].bounds.size.width , toolHeight)];
         toolView.backgroundColor = [UIColor purpleColor];
         [self.view addSubview:toolView];
-        _completeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _completeBtn = [UIButton new];
         [_completeBtn addTarget:self action:@selector(clickCompleted) forControlEvents:UIControlEventTouchUpInside];
         _completeBtn.backgroundColor = [UIColor orangeColor];
         _completeBtn.layer.cornerRadius = 3;
@@ -87,10 +115,12 @@
         CGFloat btnW = 55;
         _completeBtn.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - btnW - 10, 10,btnW,30);
         _completeBtn.enabled = NO;
+        _completeBtn.alpha = 0.6;
         [_completeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [toolView addSubview:_completeBtn];
         
-        _previewBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _previewBtn = [UIButton new];
+        _previewBtn.alpha = 0.6;
         [_previewBtn addTarget:self action:@selector(clickPreview) forControlEvents:UIControlEventTouchUpInside];
         [_previewBtn setTitle:@"预览" forState:UIControlStateNormal];
         _previewBtn.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -149,20 +179,11 @@
     return _indicatorView;
 }
 
--(void)setAssetsFilter:(ALAssetsFilter *)assetsFilter{
-    _assetsFilter = assetsFilter;
-    if (self.isTopFilter) {
-        [self.groupListView setGroupWithAssetsFilter:assetsFilter];
-    }else{
-        [self didSelectGroup:self.assetsGroup];
-    }
-}
-
 #pragma mark --- 选中分组 本地相册
-- (void)didSelectGroup:(ALAssetsGroup *)assetsGroup {
+- (void)didSelectGroup:(HZTPhotoGroupModel *)groupModel {
     [self.indicatorView startAnimating];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self loadAssets:assetsGroup];
+        [self loadPhotoAssets:groupModel];
     });
 }
 
@@ -172,42 +193,29 @@
 }
 
 #pragma mark --- 从系统相册加载图片
-- (void)loadAssets:(ALAssetsGroup *)assetsGroup {
+- (void)loadPhotoAssets:(HZTPhotoGroupModel *)groupModel{
     __weak typeof(self) weakSelf = self;
     [self.selectedItems removeAllObjects];
     [self.listDataArray removeAllObjects];
-    PHFetchOptions * option = [[PHFetchOptions alloc] init];
-    option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
-    PHFetchResult<PHAssetCollection *> *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-    for (PHAssetCollection *collection in smartAlbums){
-        if (![collection isKindOfClass:[PHAssetCollection class]]){
-            /**有可能是PHCollectionList类的的对象，过滤掉*/
-            continue;
-        }
-        if ([self isCameraRollAlbum:collection.localizedTitle]){
-            /**测试数据*/
-            PHFetchResult<PHAsset *> * fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
-            NSLog(@"PHFetchResult:%@",fetchResult);
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                [fetchResult enumerateObjectsUsingBlock:^(PHAsset * asset, NSUInteger idx, BOOL *_Nonnull stop) {
-                    HZTAssetModel * model = [[HZTAssetModel alloc] init];
-                    model.asset = asset;
-                    model.isSelected = false;
-                    model.isCameraRoll = false;
-                    [weakSelf.listDataArray addObject:model];
-                }];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.indicatorView stopAnimating];
-                    [weakSelf.listView reloadData];
-                    [weakSelf.listView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-                    weakSelf.navigationItem.title = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-                });
-            });
-        }
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [groupModel.result enumerateObjectsUsingBlock:^(PHAsset * asset, NSUInteger idx, BOOL *_Nonnull stop) {
+            HZTAssetModel * model = [[HZTAssetModel alloc] init];
+            model.asset = asset;
+            model.isSelected = false;
+            model.isCameraRoll = false;
+            [weakSelf.listDataArray addObject:model];
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.indicatorView stopAnimating];
+            [weakSelf.listView reloadData];
+            /**默认滚动到最底部*/
+            [weakSelf.listView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:weakSelf.listDataArray.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            weakSelf.navigationItem.title = groupModel.name;
+        });
+    });
 }
 
-#pragma mark - uicollectionDelegate
+#pragma mark --- UICollectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.listDataArray.count;
 }
@@ -215,26 +223,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self) weakSelf = self;
     HZTPhotoAlbumListCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HZTPhotoAlbumListCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
     cell.assetModel = self.listDataArray[indexPath.row];
-    cell.selectedItemBlock = ^(HZTAssetModel *asset) {
-        [weakSelf.selectedArray removeAllObjects];
-        weakSelf.listDataArray[indexPath.row].isSelected = !self.listDataArray[indexPath.row].isSelected;
-        for (HZTAssetModel * model in weakSelf.listDataArray) {
-            if (model.isSelected) {
-                [weakSelf.selectedArray addObject:model];
-                weakSelf.completeBtn.enabled = YES;
-            }else{
-                if ([weakSelf.selectedArray containsObject:model]) {
-                    [weakSelf.selectedArray removeObject:model];
-                }
-                if (self.selectedArray.count == 0) {
-                    weakSelf.completeBtn.enabled = NO;
-                }
-            }
-        }
-        [weakSelf.completeBtn setTitle:self.selectedArray.count ? [NSString stringWithFormat:@"完成 %ld",self.selectedArray.count] : @"完成" forState:UIControlStateNormal];
-        [weakSelf.listView reloadItemsAtIndexPaths:@[indexPath]];
+    cell.selectedItemBlock = ^(HZTAssetModel * asset) {
+        [weakSelf handleSelectedItemWithIndexPath:indexPath assets:asset];
     };
     return cell;
 }
@@ -244,7 +235,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat scal = 504 * 1.0/375;
+    CGFloat scal = 375 * 1.0/375;
     CGFloat wh = (collectionView.bounds.size.width - (self.rowCount + 2) * 5)/self.rowCount;
     return CGSizeMake(wh, wh / scal);
 }
@@ -272,8 +263,53 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark --- 具体相册分组选择回调
+-(void)didSelectGroup:(HZTPhotoGroupModel *)groupModel isAnimation:(BOOL)isAnimation{
+    if (self.isTopFilter)  [self didSelectGroup:groupModel];
+}
+
 -(void)dealloc{
     NSLog(@"控制器:%@ %@ 被释放",NSStringFromClass([self class]),self.navigationItem.title);
+}
+
+
+#pragma mark --- 滑动选择图片Action
+- (void)onPanGes:(UIPanGestureRecognizer *)panGes{
+    CGPoint point = [panGes locationInView:self.listView];
+    for (UICollectionViewCell *cell in self.listView.visibleCells) {
+        if (CGRectContainsPoint(cell.frame, point)) {
+            NSIndexPath * indexPath = [self.listView indexPathForCell:cell];
+            if (self.lastIndexPath != indexPath) {
+                [self handleSelectedItemWithIndexPath:indexPath assets:self.listDataArray[indexPath.row]];
+            }
+            self.lastIndexPath = indexPath;
+        }
+    }
+    if (panGes.state == UIGestureRecognizerStateEnded) {
+        self.lastIndexPath = nil;
+    }
+}
+
+#pragma mark --- 选中结果处理
+-(void)handleSelectedItemWithIndexPath:(NSIndexPath *)indexPath assets:(HZTAssetModel *)asset{
+    [self.selectedArray removeAllObjects];
+    asset.isSelected = !asset.isSelected;
+    for (HZTAssetModel * model in self.listDataArray) {
+        if (model.isSelected) {
+            [self.selectedArray addObject:model];
+            self.completeBtn.enabled = YES;
+        }else{
+            if ([self.selectedArray containsObject:model]) {
+                [self.selectedArray removeObject:model];
+            }
+            if (self.selectedArray.count == 0) {
+                self.completeBtn.enabled = NO;
+            }
+        }
+    }
+    self.previewBtn.alpha = self.completeBtn.alpha = self.selectedArray.count ? 1.0 : 0.6;
+    [self.completeBtn setTitle:self.selectedArray.count ? [NSString stringWithFormat:@"完成 %ld",self.selectedArray.count] : @"完成" forState:UIControlStateNormal];
+    [self.listView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 @end

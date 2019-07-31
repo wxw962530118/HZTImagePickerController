@@ -25,6 +25,7 @@ CGFloat HZTScreenScale;
 -(instancetype)init{
     if (self = [super init]) {
         self.photoPreviewMaxWidth = 600;
+        self.sortAscendingByModificationDate = YES;
     }
     return self;
 }
@@ -125,6 +126,68 @@ CGFloat HZTScreenScale;
         }
     }];
     return imageRequestID;
+}
+
+#pragma mark --- 获取所有的照片信息
+- (void)getAllAlbumsContentImage:(BOOL)contentImage contentVideo:(BOOL)contentVideo completion:(void (^)(NSArray<HZTPhotoGroupModel *> *fetchResults))completion{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableArray * albumArr = [NSMutableArray array];
+        PHFetchOptions * option = [[PHFetchOptions alloc] init];if (!contentVideo){
+            option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeImage];
+        }
+        if (!contentImage){
+            option.predicate = [NSPredicate predicateWithFormat:@"mediaType == %ld", PHAssetMediaTypeVideo];
+        }
+        if (!self.sortAscendingByModificationDate){
+            option.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:self.sortAscendingByModificationDate]];
+        }
+        PHFetchResult<PHAssetCollection *> * myPhotoStreamAlbum = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumMyPhotoStream options:nil]; //用户的 iCloud 照片流
+        PHFetchResult<PHCollection *> *topLevelUserCollections = [PHCollectionList fetchTopLevelUserCollectionsWithOptions:nil];
+        PHFetchResult<PHAssetCollection *> * syncedAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumSyncedAlbum options:nil];
+        PHFetchResult<PHAssetCollection *> * sharedAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumCloudShared options:nil];
+        PHFetchResult<PHAssetCollection *> * smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+        NSArray * allAlbums = @[myPhotoStreamAlbum, smartAlbums, topLevelUserCollections, syncedAlbums, sharedAlbums];
+        for (PHFetchResult * fetchResult in allAlbums){
+            for (PHAssetCollection * collection in fetchResult){
+                /**有可能是PHCollectionList类的的对象，过滤掉*/
+                if (![collection isKindOfClass:[PHAssetCollection class]]) continue;
+                PHFetchResult<PHAsset *> *fetchResult = [PHAsset fetchAssetsInAssetCollection:collection options:option];
+                /**过滤无照片的相册*/
+                if (fetchResult.count < 1) continue;
+                if ([collection.localizedTitle containsString:@"Deleted"] || [collection.localizedTitle isEqualToString:@"最近删除"]){
+                    continue;
+                }
+                if ([self isCameraRollAlbum:collection.localizedTitle]){
+                    [albumArr insertObject:[self modelWithResult:fetchResult name:collection.localizedTitle] atIndex:0];
+                }else{
+                    [albumArr addObject:[self modelWithResult:fetchResult name:collection.localizedTitle]];
+                }
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion && albumArr.count > 0){
+                completion(albumArr);
+            }
+        });
+    });
+}
+
+#pragma mark --- 根据PHFetchResult 包装相册分组列表数据模型
+-(HZTPhotoGroupModel *)modelWithResult:(PHFetchResult *)result name:(NSString *)name{
+    HZTPhotoGroupModel * model = [HZTPhotoGroupModel new];
+    model.result = result;
+    model.name = name;
+    if ([result isKindOfClass:[PHFetchResult class]]){
+        PHFetchResult * fetchResult = (PHFetchResult *)result;
+        /**每组里面包含的总的照片数量*/
+        model.count = fetchResult.count;
+    }
+    return model;
+}
+
+/**判断是否是相机胶卷*/
+- (BOOL)isCameraRollAlbum:(NSString *)albumName{
+    return [albumName isEqualToString:@"Camera Roll"] || [albumName isEqualToString:@"相机胶卷"] || [albumName isEqualToString:@"所有照片"] || [albumName isEqualToString:@"All Photos"];
 }
 
 @end

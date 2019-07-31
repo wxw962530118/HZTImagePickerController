@@ -7,7 +7,7 @@
 //
 
 #import "HZTPhotoGroupCell.h"
-
+#import "HZTImageManager.h"
 @interface HZTPhotoGroupCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *groupImageView;
 @property (weak, nonatomic) IBOutlet UILabel *groupNameLabel;
@@ -20,13 +20,13 @@
     [super awakeFromNib];
 }
 
--(void)setAssetsGroup:(ALAssetsGroup *)assetsGroup{
-    _assetsGroup = assetsGroup;
-    CGImageRef posterImage = assetsGroup.posterImage;
-    size_t height = CGImageGetHeight(posterImage);
-    float scale = height / 78.0f;
-    self.groupImageView.image = [UIImage imageWithCGImage:posterImage scale:scale orientation:UIImageOrientationUp];
-    self.groupNameLabel.text = [assetsGroup valueForProperty:ALAssetsGroupPropertyName];
-    self.photoCntLabel.text = [NSString stringWithFormat:@"(%ld)",(long)[assetsGroup numberOfAssets]];
+-(void)setModel:(HZTPhotoGroupModel *)model{
+    _model = model;
+    [[HZTImageManager manager] getPhotoWithAsset:model.result.lastObject completion:^(UIImage * _Nonnull photo, NSDictionary * _Nonnull info, BOOL isDegraded) {
+         self.groupImageView.image = photo;
+    }];
+    self.groupNameLabel.text = model.name;
+    self.photoCntLabel.text = [NSString stringWithFormat:@"(%ld)",model.count];
 }
+
 @end

@@ -53,7 +53,7 @@ CGFloat HZTScreenScale;
     }];
 }
 
-/**获得照片本身*/
+/**获得照片原图*/
 - (PHImageRequestID)getPhotoWithAsset:(PHAsset *)asset completion:(void (^)(UIImage *, NSDictionary *, BOOL isDegraded))completion {
     CGFloat fullScreenWidth = kScreenW;
     if (fullScreenWidth > _photoPreviewMaxWidth) {
@@ -74,11 +74,9 @@ CGFloat HZTScreenScale;
         PHAsset *phAsset = (PHAsset *)asset;
         CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
         CGFloat pixelWidth = photoWidth * 1.5 * 1.5;
-        // 超宽图片
         if (aspectRatio > 1.8) {
             pixelWidth = pixelWidth * aspectRatio;
         }
-        // 超高图片
         if (aspectRatio < 0.2) {
             pixelWidth = pixelWidth * 0.5;
         }
@@ -87,40 +85,30 @@ CGFloat HZTScreenScale;
     }
     
     __block UIImage *image;
-    // 修复获取图片时出现的瞬间内存过高问题
-    // 下面两行代码，来自hsjcom，他的github是：https://github.com/hsjcom 表示感谢
-    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+    PHImageRequestOptions * option = [[PHImageRequestOptions alloc] init];
     option.resizeMode = PHImageRequestOptionsResizeModeFast;
     int32_t imageRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:imageSize contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
-        if (result) {
-            image = result;
-        }
+        if (result) image = result;
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
-            //result = [self fixOrientation:result];
             if (completion) completion(result,info,[[info objectForKey:PHImageResultIsDegradedKey] boolValue]);
         }
-        // Download image from iCloud / 从iCloud下载图片
+        /**Download image from iCloud*/
         if ([info objectForKey:PHImageResultIsInCloudKey] && !result && networkAccessAllowed) {
             PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
             options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (progressHandler) {
+                        /**根据iCloud下载图片的进度 添加友好提示*/
                         progressHandler(progress, error, stop, info);
                     }
                 });
             };
-            options.networkAccessAllowed = YES;
+            options.networkAccessAllowed = networkAccessAllowed;
             options.resizeMode = PHImageRequestOptionsResizeModeFast;
             [[PHImageManager defaultManager] requestImageDataForAsset:asset options:options resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
                 UIImage *resultImage = [UIImage imageWithData:imageData];
-//                if (![TZImagePickerConfig sharedInstance].notScaleImage) {
-//                    resultImage = [self scaleImage:resultImage toSize:imageSize];
-//                }
-                if (!resultImage) {
-                    resultImage = image;
-                }
-                //resultImage = [self fixOrientation:resultImage];
+                if (!resultImage) resultImage = image;
                 if (completion) completion(resultImage,info,NO);
             }];
         }
@@ -170,6 +158,23 @@ CGFloat HZTScreenScale;
             }
         });
     });
+}
+
+- (PHImageRequestID)requestImageDataForAsset:(PHAsset *)asset completion:(void (^)(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info))completion progressHandler:(void (^)(double progress, NSError *error, BOOL *stop, NSDictionary *info))progressHandler {
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progressHandler) {
+                progressHandler(progress, error, stop, info);
+            }
+        });
+    };
+    options.networkAccessAllowed = YES;
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;
+    int32_t imageRequestID = [[PHImageManager defaultManager] requestImageDataForAsset:asset options:options resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
+        if (completion) completion(imageData,dataUTI,orientation,info);
+    }];
+    return imageRequestID;
 }
 
 #pragma mark --- 根据PHFetchResult 包装相册分组列表数据模型

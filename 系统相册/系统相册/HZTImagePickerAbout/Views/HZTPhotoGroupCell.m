@@ -22,8 +22,8 @@
 
 -(void)setModel:(HZTPhotoGroupModel *)model{
     _model = model;
-    [[HZTImageManager manager] getPhotoWithAsset:model.result.lastObject completion:^(UIImage * _Nonnull photo, NSDictionary * _Nonnull info, BOOL isDegraded) {
-         self.groupImageView.image = photo;
+    [[HZTImageManager manager] getPostImageWithAsset:model.result.lastObject completion:^(UIImage * _Nonnull postImage) {
+        self.groupImageView.image = postImage;
     }];
     self.groupNameLabel.text = model.name;
     self.photoCntLabel.text = [NSString stringWithFormat:@"(%ld)",model.count];

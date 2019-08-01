@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) HZTAssetModel * assetModel;
 /***/
 @property (nonatomic, copy) void (^selectedItemBlock)(HZTAssetModel * model);
+/***/
+@property (nonatomic, copy) NSString *representedAssetIdentifier;
+/***/
+@property (nonatomic, assign) int32_t imageRequestID;
 @end
 
 NS_ASSUME_NONNULL_END

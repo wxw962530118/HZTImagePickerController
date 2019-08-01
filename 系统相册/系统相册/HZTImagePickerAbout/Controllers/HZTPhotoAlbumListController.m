@@ -273,7 +273,7 @@
 }
 
 
-#pragma mark --- 滑动选择图片Action
+#pragma mark --- 滑动选择图片
 - (void)onPanGes:(UIPanGestureRecognizer *)panGes{
     CGPoint point = [panGes locationInView:self.listView];
     for (UICollectionViewCell *cell in self.listView.visibleCells) {

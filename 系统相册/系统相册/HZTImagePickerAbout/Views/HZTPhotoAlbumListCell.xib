@@ -21,6 +21,9 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gDb-Yh-6Hr">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xm_mask.png" translatesAutoresizingMaskIntoConstraints="NO" id="NC4-0I-KO3">
+                        <rect key="frame" x="0.0" y="70" width="100" height="30"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2u-Ju-w6D">
                         <rect key="frame" x="75" y="0.0" width="25" height="25"/>
                         <constraints>
@@ -32,24 +35,37 @@
                             <action selector="chooseAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="tmH-bv-Mcn"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在从iColud同步" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PH-D1-wwy">
+                        <rect key="frame" x="9" y="44" width="82" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="gDb-Yh-6Hr" secondAttribute="trailing" id="6Uq-0H-ZYi"/>
+                <constraint firstAttribute="bottom" secondItem="NC4-0I-KO3" secondAttribute="bottom" id="8FT-A7-zzD"/>
+                <constraint firstItem="2PH-D1-wwy" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="CZW-2S-Gbu"/>
+                <constraint firstItem="NC4-0I-KO3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="L4T-Jc-WDj"/>
                 <constraint firstItem="gDb-Yh-6Hr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="UBP-db-l2E"/>
                 <constraint firstItem="O2u-Ju-w6D" firstAttribute="top" secondItem="gDb-Yh-6Hr" secondAttribute="top" id="ZC2-Hs-ohv"/>
                 <constraint firstItem="gDb-Yh-6Hr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="aHA-5S-QOe"/>
+                <constraint firstAttribute="trailing" secondItem="NC4-0I-KO3" secondAttribute="trailing" id="bSM-ta-6Xa"/>
                 <constraint firstAttribute="bottom" secondItem="gDb-Yh-6Hr" secondAttribute="bottom" id="l7N-vM-PeS"/>
                 <constraint firstAttribute="trailing" secondItem="O2u-Ju-w6D" secondAttribute="trailing" id="mdM-JC-RKC"/>
+                <constraint firstItem="2PH-D1-wwy" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="vuZ-Kd-2W9"/>
             </constraints>
             <connections>
+                <outlet property="asyncProgressLabel" destination="2PH-D1-wwy" id="ivT-aN-kAt"/>
                 <outlet property="chooseBtn" destination="O2u-Ju-w6D" id="asj-eW-qJm"/>
                 <outlet property="coverImgView" destination="gDb-Yh-6Hr" id="Yhi-dg-vaX"/>
+                <outlet property="gradientView" destination="NC4-0I-KO3" id="v26-uQ-fYP"/>
             </connections>
             <point key="canvasLocation" x="140.80000000000001" y="154.72263868065968"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="no_select_icon.png" width="21" height="21"/>
+        <image name="xm_mask.png" width="110" height="30"/>
     </resources>
 </document>

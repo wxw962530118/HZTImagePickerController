@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AC0393BB22F135C7003B6823 /* HZTPhotoGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0393BA22F135C7003B6823 /* HZTPhotoGroupModel.m */; };
+		AC0393BE22F14509003B6823 /* HZTGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0393BD22F14509003B6823 /* HZTGradientView.m */; };
+		AC0393C022F16370003B6823 /* AssetsPickerVideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0393BF22F1636F003B6823 /* AssetsPickerVideo@2x.png */; };
+		AC0393C222F163CF003B6823 /* xm_mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0393C122F163CE003B6823 /* xm_mask@2x.png */; };
 		AC0E16D822EFEC5D009A9F82 /* HZTTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */; };
 		AC0E16D922EFEC5D009A9F82 /* HZTMacroNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */; };
 		AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0E16C022EFEC5D009A9F82 /* HZTAssetModel.m */; };
@@ -36,6 +39,10 @@
 /* Begin PBXFileReference section */
 		AC0393B922F135C7003B6823 /* HZTPhotoGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZTPhotoGroupModel.h; sourceTree = "<group>"; };
 		AC0393BA22F135C7003B6823 /* HZTPhotoGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZTPhotoGroupModel.m; sourceTree = "<group>"; };
+		AC0393BC22F14509003B6823 /* HZTGradientView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZTGradientView.h; sourceTree = "<group>"; };
+		AC0393BD22F14509003B6823 /* HZTGradientView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZTGradientView.m; sourceTree = "<group>"; };
+		AC0393BF22F1636F003B6823 /* AssetsPickerVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AssetsPickerVideo@2x.png"; sourceTree = "<group>"; };
+		AC0393C122F163CE003B6823 /* xm_mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xm_mask@2x.png"; sourceTree = "<group>"; };
 		AC0E16B922EFEC5D009A9F82 /* HZTTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTTestViewController.h; sourceTree = "<group>"; };
 		AC0E16BA22EFEC5D009A9F82 /* HZTTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTTestViewController.m; sourceTree = "<group>"; };
 		AC0E16BD22EFEC5D009A9F82 /* HZTMacroNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTMacroNotifications.m; sourceTree = "<group>"; };
@@ -139,6 +146,8 @@
 		AC0E16C222EFEC5D009A9F82 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AC0393C122F163CE003B6823 /* xm_mask@2x.png */,
+				AC0393BF22F1636F003B6823 /* AssetsPickerVideo@2x.png */,
 				AC0E16C322EFEC5D009A9F82 /* no_select_icon@2x.png */,
 				AC0E16C422EFEC5D009A9F82 /* select_img_icon@2x.png */,
 			);
@@ -149,11 +158,11 @@
 			isa = PBXGroup;
 			children = (
 				AC0E16C722EFEC5D009A9F82 /* HZTImagePickerController.h */,
-				AC0E16CA22EFEC5D009A9F82 /* HZTPhotoGroupListController.h */,
-				AC0E16CB22EFEC5D009A9F82 /* HZTPhotoAlbumListController.h */,
-				AC0E16C622EFEC5D009A9F82 /* HZTPhotoGroupListController.m */,
-				AC0E16C822EFEC5D009A9F82 /* HZTPhotoAlbumListController.m */,
 				AC0E16C922EFEC5D009A9F82 /* HZTImagePickerController.m */,
+				AC0E16CA22EFEC5D009A9F82 /* HZTPhotoGroupListController.h */,
+				AC0E16C622EFEC5D009A9F82 /* HZTPhotoGroupListController.m */,
+				AC0E16CB22EFEC5D009A9F82 /* HZTPhotoAlbumListController.h */,
+				AC0E16C822EFEC5D009A9F82 /* HZTPhotoAlbumListController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -161,18 +170,20 @@
 		AC0E16CC22EFEC5D009A9F82 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AC0E16E622EFECB1009A9F82 /* HZTPhotoGroupListView.m */,
-				AC0E16CD22EFEC5D009A9F82 /* HZTPhotoGroupCell.h */,
+				AC0E16D622EFEC5D009A9F82 /* HZTPhotoAlbumListCell.h */,
 				AC0E16CE22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.m */,
 				AC0E16CF22EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib */,
+				AC0E16D522EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.h */,
 				AC0E16D022EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.m */,
-				AC0E16D122EFEC5D009A9F82 /* HZTPhotoGroupListView.h */,
-				AC0E16D222EFEC5D009A9F82 /* HZTPhotoAlbumListView.m */,
+				AC0E16CD22EFEC5D009A9F82 /* HZTPhotoGroupCell.h */,
 				AC0E16D322EFEC5D009A9F82 /* HZTPhotoGroupCell.xib */,
 				AC0E16D422EFEC5D009A9F82 /* HZTPhotoGroupCell.m */,
-				AC0E16D522EFEC5D009A9F82 /* HZTPhotoAlbumListFlowLayout.h */,
-				AC0E16D622EFEC5D009A9F82 /* HZTPhotoAlbumListCell.h */,
+				AC0E16D122EFEC5D009A9F82 /* HZTPhotoGroupListView.h */,
+				AC0E16E622EFECB1009A9F82 /* HZTPhotoGroupListView.m */,
 				AC0E16D722EFEC5D009A9F82 /* HZTPhotoAlbumListView.h */,
+				AC0E16D222EFEC5D009A9F82 /* HZTPhotoAlbumListView.m */,
+				AC0393BC22F14509003B6823 /* HZTGradientView.h */,
+				AC0393BD22F14509003B6823 /* HZTGradientView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,9 +279,11 @@
 			files = (
 				AC30E18922EED1DF00FF14CC /* LaunchScreen.storyboard in Resources */,
 				AC30E18622EED1DF00FF14CC /* Assets.xcassets in Resources */,
+				AC0393C222F163CF003B6823 /* xm_mask@2x.png in Resources */,
 				AC0E16DB22EFEC5D009A9F82 /* no_select_icon@2x.png in Resources */,
 				AC0E16E122EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib in Resources */,
 				AC0E16E422EFEC5D009A9F82 /* HZTPhotoGroupCell.xib in Resources */,
+				AC0393C022F16370003B6823 /* AssetsPickerVideo@2x.png in Resources */,
 				AC0E16DC22EFEC5D009A9F82 /* select_img_icon@2x.png in Resources */,
 				AC30E18422EED1DD00FF14CC /* Main.storyboard in Resources */,
 			);
@@ -292,6 +305,7 @@
 				AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */,
 				AC0E16F022F12A14009A9F82 /* HZTFPSLabel.m in Sources */,
 				AC0E16ED22F04160009A9F82 /* HZTImageManager.m in Sources */,
+				AC0393BE22F14509003B6823 /* HZTGradientView.m in Sources */,
 				AC0E16DE22EFEC5D009A9F82 /* HZTPhotoAlbumListController.m in Sources */,
 				AC0E16E322EFEC5D009A9F82 /* HZTPhotoAlbumListView.m in Sources */,
 				AC0E16E722EFECB2009A9F82 /* HZTPhotoGroupListView.m in Sources */,

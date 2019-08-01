@@ -8,10 +8,7 @@
 
 #import "HZTToastView.h"
 #import "ToolBaseClass.h"
-#define RootWindow [UIApplication sharedApplication].delegate.window
-#define kScreenW [UIScreen mainScreen].bounds.size.width
-#define kScreenH [UIScreen mainScreen].bounds.size.height
-
+#import "HZTImagePickerHeader.h"
 @interface HZTToastView ()
 /***/
 @property (nonatomic, strong) UILabel * toastLabel;
@@ -28,7 +25,7 @@
     HZTToastView * view = [[HZTToastView alloc] initWithFrame:CGRectZero];
     [view configWithToast:toast];
     view.toastLabel.text = toast;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:duration/2 animations:^{
             view.alpha = 0;
         } completion:^(BOOL finished) {

@@ -15,6 +15,8 @@
 #import "ToolBaseClass.h"
 #import <Photos/Photos.h>
 #import "HZTImageManager.h"
+#import "HZTImageBrowserManger.h"
+#import "HZTImageBrowserHeader.h"
 @interface HZTPhotoAlbumListController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,HZTPhotoGroupViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic, strong) id<UIGestureRecognizerDelegate> originalDelegate;
 /***/
@@ -33,6 +35,8 @@
 @property (nonatomic, strong) UIActivityIndicatorView * indicatorView;
 /***/
 @property (nonatomic, strong) NSIndexPath * lastIndexPath;
+/***/
+@property (nonatomic, strong) HZTImageBrowserManger * imageBrowserManger;
 @end
 
 @implementation HZTPhotoAlbumListController
@@ -211,8 +215,37 @@
             /**默认滚动到最底部*/
             [weakSelf.listView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:weakSelf.listDataArray.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             weakSelf.navigationItem.title = groupModel.name;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                 [weakSelf handleBroswerData];
+            });
         });
     });
+}
+
+-(void)handleBroswerData{
+    self.imageBrowserManger = [HZTImageBrowserManger imageBrowserMangerWithUrlStr:[self getOriginImages] originImageViews:[self getOriginImageViews] originController:self isFromPicker:YES];
+}
+
+-(NSArray <UIImageView *>*)getOriginImageViews{
+    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
+    NSMutableArray * tempArr = [NSMutableArray array];
+    for (int i = 0; i< arr.count; i++) {
+        HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)arr[i];
+        [tempArr addObject:cell.coverImgView];
+    }
+    return tempArr;
+}
+
+-(NSArray <HZTImageBrowserModel *>*)getOriginImages{
+    NSMutableArray * tempArr = [NSMutableArray array];
+    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
+    for (int i = 0; i< arr.count; i++) {
+        HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)arr[i];
+        HZTImageBrowserModel * model = [HZTImageBrowserModel new];
+        model.asset = cell.assetModel.asset;
+        [tempArr addObject:model];
+    }
+    return tempArr;
 }
 
 #pragma mark --- UICollectionViewDelegate
@@ -248,9 +281,15 @@
     return 5.0;
 }
 
+#pragma mark --- 进入预览页
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    /**进入预览页*/
-    
+    HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
+    NSInteger index = [arr indexOfObject:cell];
+    NSLog(@"index:%ld",index);
+    //self.imageBrowserManger.originImageView = cell.coverImgView;
+    self.imageBrowserManger.selectPage = index;
+    [self.imageBrowserManger showImageBrowser];
 }
 
 #pragma mark --- 进入预览页

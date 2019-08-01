@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HZTPhotoAlbumListCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *coverImgView;
 /***/
 @property (nonatomic, strong) HZTAssetModel * assetModel;
 /***/

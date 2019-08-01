@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger,PHAssetType){
 };
 
 @interface HZTAssetModel : NSObject
+/**/
+@property (nonatomic, strong) UIImageView * imageView;
 /***/
 @property (nonatomic, strong) PHAsset * asset;
 /**是否选中*/

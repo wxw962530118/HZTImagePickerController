@@ -11,7 +11,6 @@
 #import "HZTGradientView.h"
 #import "HZTToastView.h"
 @interface HZTPhotoAlbumListCell ()
-@property (weak, nonatomic) IBOutlet UIImageView *coverImgView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *gradientView;
 @property (weak, nonatomic) IBOutlet UILabel *asyncProgressLabel;

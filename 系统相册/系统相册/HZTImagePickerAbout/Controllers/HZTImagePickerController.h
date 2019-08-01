@@ -1,5 +1,5 @@
 //
-//  HZTImagePickerController.h
+//  HZTImagePickerHeaderController.h
 //  系统相册
 //
 //  Created by 王新伟 on 2019/7/30.
@@ -10,7 +10,7 @@
 #import "HZTAssetModel.h"
 NS_ASSUME_NONNULL_BEGIN
 @class HZTImagePickerController;
-@protocol HZTImagePickerDelegate <NSObject>
+@protocol HZTImagePickerHeaderDelegate <NSObject>
 @optional
 /**选择完成*/
 - (void)photoPicker:(HZTImagePickerController *)picker didSelectAssets:(NSArray <HZTAssetModel *>*)assets;
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**导航栏配置样式相关*/
 
 /**初始化方法*/
--(instancetype)initWithMaxCount:(NSInteger)maxCount delegate:(id<HZTImagePickerDelegate>)deleagte;
+-(instancetype)initWithMaxCount:(NSInteger)maxCount delegate:(id<HZTImagePickerHeaderDelegate>)deleagte;
 
 /**基础属性配置*/
 /**最大选择图片数量  默认9张*/

@@ -9,7 +9,9 @@
 #import "HZTTestViewController.h"
 #import "HZTImagePickerController.h"
 #import "HZTPhotoGroupListController.h"
-@interface HZTTestViewController ()<UIActionSheetDelegate,HZTImagePickerDelegate>
+#import "HZTChooseFilesManager.h"
+#define  MaxFileCount 9;
+@interface HZTTestViewController ()<UIActionSheetDelegate,HZTImagePickerHeaderDelegate>
 /***/
 @property (nonatomic, strong) HZTImagePickerController * pickerVc;
 @end
@@ -34,7 +36,7 @@
     }
 }
 
-#pragma mark --- HZTImagePickerDelegate
+#pragma mark --- HZTImagePickerHeaderDelegate
 -(void)photoPicker:(HZTImagePickerController *)picker didSelectAssets:(NSArray<HZTAssetModel *> *)assets{
     NSLog(@"assets:%@",assets);
 }

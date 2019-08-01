@@ -1,5 +1,5 @@
 //
-//  HZTImagePickerController.m
+//  HZTImagePickerHeaderController.m
 //  系统相册
 //
 //  Created by 王新伟 on 2019/7/30.
@@ -13,7 +13,7 @@
 /***/
 @property (nonatomic, strong) HZTPhotoGroupListController * photoGroupVc;
 /***/
-@property (nonatomic, weak) id <HZTImagePickerDelegate> m_delagate;
+@property (nonatomic, weak) id <HZTImagePickerHeaderDelegate> m_delagate;
 @end
 
 @implementation HZTImagePickerController
@@ -22,7 +22,7 @@
     [super viewDidLoad];
 }
 
--(instancetype)initWithMaxCount:(NSInteger)maxCount delegate:(id<HZTImagePickerDelegate>)deleagte{
+-(instancetype)initWithMaxCount:(NSInteger)maxCount delegate:(id<HZTImagePickerHeaderDelegate>)deleagte{
     if (self = [self init]) {
         self.m_delagate = deleagte;
         self.maxCount = maxCount;

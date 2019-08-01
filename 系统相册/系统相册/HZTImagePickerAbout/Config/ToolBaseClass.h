@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)manager;
 /**判断手机型号是否为iPhoneX及以上*/
 -(BOOL)handleIPhoneModel;
+/**计算字符串的高度 (包括对多行文字的处理) */
++(CGFloat)getHeightWithString:(NSString *)string width:(CGFloat)width font:(UIFont *)font;
 /**计算字符串的宽度 */
 +(CGFloat)getWidthWithString:(NSString *)string font:(UIFont *)font;
 @end

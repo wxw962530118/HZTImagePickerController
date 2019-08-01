@@ -10,9 +10,12 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 NS_ASSUME_NONNULL_BEGIN
-typedef NS_ENUM(NSInteger,AssetType){
-    AssetType_Image = 0,
-    AssetType_Video
+typedef NS_ENUM(NSInteger,PHAssetType){
+    PHAssetType_Image = 0,  /**普通图片*/
+    PHAssetType_Gif,        /**gif*/
+    PHAssetType_Video,      /**视频*/
+    PHAssetType_Audio,      /**音频*/
+    PHAssetType_LivePhoto   /**现场照片*/
 };
 
 @interface HZTAssetModel : NSObject
@@ -25,7 +28,7 @@ typedef NS_ENUM(NSInteger,AssetType){
 /**封面图*/
 @property (nonatomic, strong) UIImage * coverImage;
 /***/
-@property (nonatomic, assign) AssetType type;
+@property (nonatomic, assign) PHAssetType assetType;
 /***/
 @property (nonatomic, copy) NSString * videoUrl;
 /**选择图片时候带动画*/

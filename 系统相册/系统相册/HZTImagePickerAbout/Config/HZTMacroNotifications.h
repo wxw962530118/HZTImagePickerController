@@ -14,15 +14,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-CG_INLINE void NotificationRegister(NSString *name, id observer, SEL selector, id object) {
+CG_INLINE void NotificationRegister(NSString *name, id observer, SEL selector, id __nullable object) {
     [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:name object:object];
 }
 
-CG_INLINE void NotificationPost(NSString *name, id object, NSDictionary *userInfo) {
+CG_INLINE void NotificationPost(NSString *name, id __nullable object, NSDictionary * __nullable userInfo) {
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:object userInfo:userInfo];
 }
 
-CG_INLINE void NotificationRemove(NSString *name, id observer, id object) {
+CG_INLINE void NotificationRemove(NSString *name, id observer, id __nullable object) {
     [[NSNotificationCenter defaultCenter] removeObserver:observer name:name object:object];
 }
 

@@ -9,11 +9,14 @@
 #import "HZTPhotoAlbumListCell.h"
 #import "HZTImageManager.h"
 #import "HZTGradientView.h"
+#import "HZTToastView.h"
 @interface HZTPhotoAlbumListCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *coverImgView;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *gradientView;
 @property (weak, nonatomic) IBOutlet UILabel *asyncProgressLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *videoFlagView;
+@property (weak, nonatomic) IBOutlet UILabel *videoLengthLabel;
 @property (nonatomic, assign) int32_t bigImageRequestID;
 @end
 
@@ -27,6 +30,9 @@
 
 -(void)setAssetModel:(HZTAssetModel *)assetModel{
     _assetModel = assetModel;
+    self.videoLengthLabel.text = [self convertLenthToStr:[[NSNumber numberWithDouble:assetModel.durationValue] intValue]];
+    self.videoLengthLabel.hidden = assetModel.assetType != PHAssetType_Video;
+    self.videoFlagView.hidden = self.videoLengthLabel.hidden;
     self.representedAssetIdentifier = assetModel.asset.localIdentifier;
     int32_t imageRequestID = [[HZTImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:40 completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if ([self.representedAssetIdentifier isEqualToString:assetModel.asset.localIdentifier]) {
@@ -41,6 +47,24 @@
     }
     self.imageRequestID = imageRequestID;
     [self.chooseBtn setImage:[UIImage imageNamed:assetModel.isSelected ? @"select_img_icon" : @"no_select_icon"] forState:UIControlStateNormal];
+}
+
+- (NSString *)convertLenthToStr:(int)duration{
+    NSString * newTime;
+    if (duration < 10) {
+        newTime = [NSString stringWithFormat:@"0:0%d",duration];
+    } else if (duration < 60) {
+        newTime = [NSString stringWithFormat:@"0:%d",duration];
+    } else {
+        NSInteger min = duration / 60;
+        NSInteger sec = duration - (min * 60);
+        if (sec < 10) {
+            newTime = [NSString stringWithFormat:@"%zd:0%zd",min,sec];
+        } else {
+            newTime = [NSString stringWithFormat:@"%zd:%zd",min,sec];
+        }
+    }
+    return newTime;
 }
 
 - (IBAction)chooseAction:(id)sender {
@@ -64,6 +88,7 @@
         self.asyncProgressLabel.hidden = YES;
     } progressHandler:^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         if (error) {
+            [HZTToastView showToast:[NSString stringWithFormat:@"async iCloud error async ❌ %@",error.userInfo]];
             NSLog(@"async iCloud error:%@",error.userInfo);
             self.chooseBtn.hidden = NO;
             self.asyncProgressLabel.hidden = YES;

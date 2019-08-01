@@ -37,4 +37,16 @@
     return [string boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font} context:nil].size.width;
 }
 
++ (CGFloat)getHeightWithString:(NSString *)string width:(CGFloat)width font:(UIFont *)font{
+    CGFloat height = [string boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:font} context:nil].size.height;
+    if ([string isEqualToString:@"\n"]) {
+        height += [self hasLineWithString:string]*font.lineHeight;
+    }
+    return height;
+}
+
++ (NSUInteger)hasLineWithString:(NSString *)string{
+    return [string componentsSeparatedByString:@"\n"].count;
+}
+
 @end

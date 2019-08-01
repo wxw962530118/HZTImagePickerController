@@ -40,6 +40,19 @@
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xV-at-gSd">
+                        <rect key="frame" x="63.5" y="84.5" width="31.5" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AssetsPickerVideo.png" translatesAutoresizingMaskIntoConstraints="NO" id="2av-6E-Bia">
+                        <rect key="frame" x="5" y="87" width="16" height="8"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="3HG-4Y-kDL"/>
+                            <constraint firstAttribute="height" constant="8" id="kKt-oC-rrc"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
@@ -51,20 +64,27 @@
                 <constraint firstItem="O2u-Ju-w6D" firstAttribute="top" secondItem="gDb-Yh-6Hr" secondAttribute="top" id="ZC2-Hs-ohv"/>
                 <constraint firstItem="gDb-Yh-6Hr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="aHA-5S-QOe"/>
                 <constraint firstAttribute="trailing" secondItem="NC4-0I-KO3" secondAttribute="trailing" id="bSM-ta-6Xa"/>
+                <constraint firstAttribute="bottom" secondItem="2av-6E-Bia" secondAttribute="bottom" constant="5" id="cYm-CI-5ku"/>
+                <constraint firstItem="9xV-at-gSd" firstAttribute="centerY" secondItem="2av-6E-Bia" secondAttribute="centerY" id="iSJ-rb-Njc"/>
                 <constraint firstAttribute="bottom" secondItem="gDb-Yh-6Hr" secondAttribute="bottom" id="l7N-vM-PeS"/>
                 <constraint firstAttribute="trailing" secondItem="O2u-Ju-w6D" secondAttribute="trailing" id="mdM-JC-RKC"/>
+                <constraint firstAttribute="trailing" secondItem="9xV-at-gSd" secondAttribute="trailing" constant="5" id="nH8-9n-fUI"/>
                 <constraint firstItem="2PH-D1-wwy" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="vuZ-Kd-2W9"/>
+                <constraint firstItem="2av-6E-Bia" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="x9t-oX-ttp"/>
             </constraints>
             <connections>
                 <outlet property="asyncProgressLabel" destination="2PH-D1-wwy" id="ivT-aN-kAt"/>
                 <outlet property="chooseBtn" destination="O2u-Ju-w6D" id="asj-eW-qJm"/>
                 <outlet property="coverImgView" destination="gDb-Yh-6Hr" id="Yhi-dg-vaX"/>
                 <outlet property="gradientView" destination="NC4-0I-KO3" id="v26-uQ-fYP"/>
+                <outlet property="videoFlagView" destination="2av-6E-Bia" id="GpM-ed-ELd"/>
+                <outlet property="videoLengthLabel" destination="9xV-at-gSd" id="i2c-X2-UvY"/>
             </connections>
             <point key="canvasLocation" x="140.80000000000001" y="154.72263868065968"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="AssetsPickerVideo.png" width="15" height="8"/>
         <image name="no_select_icon.png" width="21" height="21"/>
         <image name="xm_mask.png" width="110" height="30"/>
     </resources>

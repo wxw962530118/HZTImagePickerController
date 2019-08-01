@@ -34,6 +34,7 @@
 		AC30E18622EED1DF00FF14CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18522EED1DF00FF14CC /* Assets.xcassets */; };
 		AC30E18922EED1DF00FF14CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC30E18722EED1DF00FF14CC /* LaunchScreen.storyboard */; };
 		AC30E18C22EED1DF00FF14CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC30E18B22EED1DF00FF14CC /* main.m */; };
+		AC9681D322F28C70000343B5 /* HZTToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9681D222F28C70000343B5 /* HZTToastView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,8 @@
 		AC30E18822EED1DF00FF14CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC30E18A22EED1DF00FF14CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC30E18B22EED1DF00FF14CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AC9681D122F28C70000343B5 /* HZTToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZTToastView.h; sourceTree = "<group>"; };
+		AC9681D222F28C70000343B5 /* HZTToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HZTToastView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,8 @@
 				AC0E16E922EFEF04009A9F82 /* ToolBaseClass.m */,
 				AC0E16EB22F04160009A9F82 /* HZTImageManager.h */,
 				AC0E16EC22F04160009A9F82 /* HZTImageManager.m */,
+				AC9681D122F28C70000343B5 /* HZTToastView.h */,
+				AC9681D222F28C70000343B5 /* HZTToastView.m */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 				AC30E17E22EED1DC00FF14CC /* AppDelegate.m in Sources */,
 				AC0E16DA22EFEC5D009A9F82 /* HZTAssetModel.m in Sources */,
 				AC0E16F022F12A14009A9F82 /* HZTFPSLabel.m in Sources */,
+				AC9681D322F28C70000343B5 /* HZTToastView.m in Sources */,
 				AC0E16ED22F04160009A9F82 /* HZTImageManager.m in Sources */,
 				AC0393BE22F14509003B6823 /* HZTGradientView.m in Sources */,
 				AC0E16DE22EFEC5D009A9F82 /* HZTPhotoAlbumListController.m in Sources */,

@@ -62,6 +62,8 @@
     }else{
         /**本地图片预览*/
         self.videoFlagView.hidden = _imageBrowserModel.asset.mediaType != PHAssetMediaTypeVideo;
+        if(_imageBrowserModel.image) self.subImageView.image = _imageBrowserModel.image;
+        [self updateSubScrollViewSubImageView];
         [[HZTImageManager manager] requestImageDataForAsset:_imageBrowserModel.asset completion:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
             self.subImageView.image = [UIImage imageWithData:imageData];
             self.asyncProgressLabel.hidden = YES;

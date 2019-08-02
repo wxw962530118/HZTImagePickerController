@@ -10,10 +10,8 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h>
 @interface HZTImageBrowserModel : NSObject
-/***/
+/**系统相册资源某个文件*/
 @property (nonatomic, strong) PHAsset * asset;
-/***/
-@property (nonatomic, strong) UIImage * image;
 @property(nonatomic,copy)NSString * urlStr;
 @property(nonatomic,assign)CGSize smallImageSize;
 @property(nonatomic,weak)UIImageView * smallImageView;

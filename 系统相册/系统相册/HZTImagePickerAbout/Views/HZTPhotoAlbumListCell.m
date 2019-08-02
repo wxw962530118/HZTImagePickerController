@@ -33,6 +33,7 @@
     self.videoLengthLabel.hidden = assetModel.assetType != PHAssetType_Video;
     self.videoFlagView.hidden = self.videoLengthLabel.hidden;
     self.representedAssetIdentifier = assetModel.asset.localIdentifier;
+    self.coverImgView.image = [UIImage imageNamed:@"note_timeline_photo_default"];
     int32_t imageRequestID = [[HZTImageManager manager] getPhotoWithAsset:assetModel.asset photoWidth:40 completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         if ([self.representedAssetIdentifier isEqualToString:assetModel.asset.localIdentifier]) {
             self.coverImgView.image = photo;

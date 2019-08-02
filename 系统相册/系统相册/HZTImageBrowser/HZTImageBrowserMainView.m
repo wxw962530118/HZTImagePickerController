@@ -102,17 +102,18 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGFloat currentX = scrollView.contentOffset.x;
     NSInteger currentPage = currentX / (Screen_Width + SpaceWidth);
+    if (_selectPage != currentPage) {
+        HZTImageBrowserSubView * selectBrowserSubView = self.browserSubViews[currentPage];
+        [selectBrowserSubView updateDataWithModel];
+    }
     _selectPage = currentPage;
     [self.pageControl setCurrentPage:currentPage];
-    HZTImageBrowserSubView * selectBrowserSubView = self.browserSubViews[currentPage];
-    [selectBrowserSubView updateDataWithModel];
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat currentX = scrollView.contentOffset.x;
     NSInteger currentPage = currentX / (Screen_Width + SpaceWidth);
-    HZTImageBrowserSubView * selectBrowserSubView = self.browserSubViews[currentPage];
-    [selectBrowserSubView updateDataWithModel];
     [self.pageControl setCurrentPage:currentPage];
 }
 

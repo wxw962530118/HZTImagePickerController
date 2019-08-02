@@ -60,9 +60,9 @@
             if (!error) [ws updateSubScrollViewSubImageView];
         }];
     }else{
-        /**本地图片预览*/
+        /**本地相册图片预览*/
         self.videoFlagView.hidden = _imageBrowserModel.asset.mediaType != PHAssetMediaTypeVideo;
-        if(_imageBrowserModel.image) self.subImageView.image = _imageBrowserModel.image;
+        self.subImageView.image = _imageBrowserModel.smallImageView.image;
         [self updateSubScrollViewSubImageView];
         [[HZTImageManager manager] requestImageDataForAsset:_imageBrowserModel.asset completion:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
             self.subImageView.image = [UIImage imageWithData:imageData];
@@ -75,7 +75,7 @@
             }else{
                 progress = progress > 0.02 ? progress : 0.02;
                 NSNumber * num = [NSNumber numberWithDouble:progress * 100];
-                self.asyncProgressLabel.text = [NSString stringWithFormat:@"正在同步iColud%d%@",[num intValue],@"%"];
+                self.asyncProgressLabel.text = [NSString stringWithFormat:@"正在同步iColud数据%d%@",[num intValue],@"%"];
                 self.asyncProgressLabel.hidden = [num intValue] >= 100;
                 NSLog(@"downLoad from iCloud Progress:%.2f  present:%d",progress,[num intValue]);
             }
@@ -205,6 +205,7 @@
 - (UIImageView *)subImageView {
     if (_subImageView == nil) {
         _subImageView = [[UIImageView alloc] init];
+        _subImageView.image = _imageBrowserModel.smallImageView.image;
         _subImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _subImageView;
@@ -228,6 +229,7 @@
         _videoFlagView = [[UIImageView alloc] initWithFrame:CGRectMake((Screen_Width-imgWH)/2, (Screen_Height-imgWH)/2,imgWH, imgWH)];
         [_videoFlagView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(preViewVideo)]];
         _videoFlagView.userInteractionEnabled = YES;
+        _videoFlagView.hidden = YES;
         _videoFlagView.image = [UIImage imageNamed:@"growth_video_flag"];
     }
     return _videoFlagView;

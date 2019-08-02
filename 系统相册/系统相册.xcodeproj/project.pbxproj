@@ -76,9 +76,9 @@
 		AC96827922F2CB2D000343B5 /* HZTImageBrowserMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC96826F22F2CB2C000343B5 /* HZTImageBrowserMainView.m */; };
 		AC96827A22F2CB2D000343B5 /* HZTImageBrowserTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC96827122F2CB2C000343B5 /* HZTImageBrowserTranslation.m */; };
 		AC96827B22F2CB2D000343B5 /* HZTImageBrowserManger.m in Sources */ = {isa = PBXBuildFile; fileRef = AC96827322F2CB2C000343B5 /* HZTImageBrowserManger.m */; };
-		AC96827D22F2D0D3000343B5 /* test_01.png in Resources */ = {isa = PBXBuildFile; fileRef = AC96827C22F2D0D3000343B5 /* test_01.png */; };
 		ACA4042E22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA4042D22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m */; };
 		ACA4043122F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA4043022F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m */; };
+		ACA4043322F42FD400F72269 /* note_timeline_photo_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA4043222F42FD400F72269 /* note_timeline_photo_default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -209,11 +209,11 @@
 		AC96827222F2CB2C000343B5 /* HZTImageBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTImageBrowserViewController.h; sourceTree = "<group>"; };
 		AC96827322F2CB2C000343B5 /* HZTImageBrowserManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTImageBrowserManger.m; sourceTree = "<group>"; };
 		AC96827422F2CB2C000343B5 /* HZTImageBrowserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTImageBrowserModel.h; sourceTree = "<group>"; };
-		AC96827C22F2D0D3000343B5 /* test_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test_01.png; path = ../../../../../test_01.png; sourceTree = "<group>"; };
 		ACA4042C22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerViewController+HZTPlayVideoWindow.h"; sourceTree = "<group>"; };
 		ACA4042D22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerViewController+HZTPlayVideoWindow.m"; sourceTree = "<group>"; };
 		ACA4042F22F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AVPlayerViewController+HZTPlayVideoWindow.h"; sourceTree = "<group>"; };
 		ACA4043022F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AVPlayerViewController+HZTPlayVideoWindow.m"; sourceTree = "<group>"; };
+		ACA4043222F42FD400F72269 /* note_timeline_photo_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note_timeline_photo_default@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,7 +285,7 @@
 		AC0E16C222EFEC5D009A9F82 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				AC96827C22F2D0D3000343B5 /* test_01.png */,
+				ACA4043222F42FD400F72269 /* note_timeline_photo_default@2x.png */,
 				AC9681FD22F29A04000343B5 /* new_publish_album@2x.png */,
 				AC9681FF22F29A04000343B5 /* new_publish_audio@2x.png */,
 				AC96820022F29A04000343B5 /* new_publish_cammer@2x.png */,
@@ -550,13 +550,13 @@
 				AC96820422F29A04000343B5 /* new_publish_audio@2x.png in Resources */,
 				AC0E16E122EFEC5D009A9F82 /* HZTPhotoAlbumListCell.xib in Resources */,
 				AC0E16E422EFEC5D009A9F82 /* HZTPhotoGroupCell.xib in Resources */,
+				ACA4043322F42FD400F72269 /* note_timeline_photo_default@2x.png in Resources */,
 				AC96820222F29A04000343B5 /* new_publish_album@2x.png in Resources */,
 				AC0393C022F16370003B6823 /* AssetsPickerVideo@2x.png in Resources */,
 				AC96820522F29A04000343B5 /* new_publish_cammer@2x.png in Resources */,
 				AC0E16DC22EFEC5D009A9F82 /* select_img_icon@2x.png in Resources */,
 				AC30E18422EED1DD00FF14CC /* Main.storyboard in Resources */,
 				AC9681FB22F29901000343B5 /* growth_video_flag@2x.png in Resources */,
-				AC96827D22F2D0D3000343B5 /* test_01.png in Resources */,
 				AC96820122F29A04000343B5 /* publish_audio_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -70,7 +70,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //[self addPanGestureRecognizer];
     [self configNavItem];
     [self addBottomToolView];
 }
@@ -105,7 +104,7 @@
 -(void)addBottomToolView{
     if (!_completeBtn) {
         CGFloat toolHeight = IS_IPhoneX() ? 68 : 34;
-        UIView * toolView = [[UIView alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height -toolHeight,[UIScreen mainScreen].bounds.size.width , toolHeight)];
+        UIView * toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height  - toolHeight,self.view.frame.size.width , toolHeight)];
         toolView.backgroundColor = [UIColor purpleColor];
         [self.view addSubview:toolView];
         _completeBtn = [UIButton new];
@@ -235,7 +234,6 @@
     for (int i = 0; i< arr.count; i++) {
         HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)arr[i];
         HZTImageBrowserModel * model = [HZTImageBrowserModel new];
-        if (cell.coverImgView.image) model.image = cell.coverImgView.image;
         model.asset = cell.assetModel.asset;
         [tempArr addObject:model];
     }

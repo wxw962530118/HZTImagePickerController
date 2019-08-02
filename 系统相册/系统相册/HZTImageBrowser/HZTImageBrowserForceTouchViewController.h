@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 typedef void(^ForceTouchActionBlock)(NSInteger selectIndex, NSString *title);
-
 @interface HZTImageBrowserForceTouchViewController : UIViewController
 @property(nonatomic,strong)UIImage *showOriginForceImage;
 @property(nonatomic,copy)NSString *showForceImageUrl;
 @property(nonatomic,copy)NSArray * previewActionTitls;
 @property(nonatomic,copy)ForceTouchActionBlock forceTouchActionBlock;
-
 @end

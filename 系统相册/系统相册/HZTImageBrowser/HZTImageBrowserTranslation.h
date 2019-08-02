@@ -14,5 +14,6 @@
 @property(nonatomic,assign)BOOL isBrowserMainView;
 @property(nonatomic,strong)HZTImageBrowserMainView * mainBrowserMainView;
 @property(nonatomic,strong)UIView * browserControllerView;
-
+/**/
+@property (nonatomic, strong) UICollectionView * collectionView;
 @end

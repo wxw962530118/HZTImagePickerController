@@ -20,10 +20,16 @@
 @interface HZTImageBrowserSubView : UIView
 
 @property(nonatomic,weak)id<HZTImageBrowserSubViewDelegate> delegate;
-
+/**
+ 初始化浏览的子视图
+ @param frame  位置 大小
+ @param imageBrowserModel  数据模型
+ @return HZTImageBrowserSubView
+ */
 - (HZTImageBrowserSubView *)initWithFrame:(CGRect)frame ImageBrowserModel:(HZTImageBrowserModel *)imageBrowserModel;
--(void)congifModel;
-/***/
+/**外界滚动结束 后 更新某条数据*/
+-(void)updateDataWithModel;
+/**当前选中的idnex*/
 @property (nonatomic, assign) NSInteger selectIndex;
 
 @end

@@ -12,11 +12,8 @@
 typedef void(^ForceTouchActionBlock)(NSInteger selectIndex, NSString *title);
 
 @interface HZTImageBrowserManger : NSObject
-/**点击的那张小图*/
-@property (nonatomic, strong) UIImageView * originImageView;
 /**选中哪一个imageView*/
 @property(nonatomic,assign)NSInteger selectPage;
-+ (HZTImageBrowserManger *)imageBrowserMangerWithUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originController:(UIViewController *)controller isFromPicker:(BOOL)isFromPicker;
 /**
  初始化 MHZTImageBrowserMangeranger
  @param browserModels 各个图片大图的url

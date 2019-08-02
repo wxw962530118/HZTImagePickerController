@@ -24,7 +24,7 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     NSMutableArray * dataM = [self.mainBrowserMainView dataSource];
     NSInteger currentIndex = [self.mainBrowserMainView selectPage];
-
+    
     HZTImageBrowserModel * currentModel = [dataM objectAtIndex:currentIndex];
     
     //转场过程中显示的view，所有动画控件都应该加在这上面
@@ -78,7 +78,10 @@
 }
 
 - (UIImageView *)addShadowImageViewWithFrame:(CGRect)frame image:(UIImage *)image {
-    UIImageView * imageView = [[UIImageView alloc] initWithFrame:frame];
+    CGRect tempFrame = frame;
+    if (isnan(tempFrame.origin.y)) tempFrame.origin.y = 0;
+    if (isnan(tempFrame.size.height)) tempFrame.size.height = 0;
+    UIImageView * imageView = [[UIImageView alloc] initWithFrame:tempFrame];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
     imageView.image = image;

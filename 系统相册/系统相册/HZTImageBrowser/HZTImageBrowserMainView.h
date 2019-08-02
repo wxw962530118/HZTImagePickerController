@@ -21,7 +21,6 @@
 @property(nonatomic,weak)id<HZTImageBrowserMainViewDelegate>delegate;
 @property(nonatomic,strong)NSMutableArray * dataSource;
 @property(nonatomic,assign)NSInteger selectPage;
-
 /**
  初始化主视图
  @param browserModels 大图的下载地址
@@ -29,10 +28,9 @@
  @param selectPage 当前选中的是哪一个iamgeView
  @return 主视图
  */
-+ (instancetype)imageBrowserMainViewUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originImageViews:(NSArray<UIImageView *>*)originImageViews selectPage:(NSInteger)selectPage originImageView:(UIImageView *)originImageView isFromPicker:(BOOL)isFromPicker;
++ (instancetype)imageBrowserMainViewUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originImageViews:(NSArray<UIImageView *>*)originImageViews selectPage:(NSInteger)selectPage isFromPicker:(BOOL)isFromPicker;
 /**隐藏子组件
  @param isHidden 是否隐藏
  */
 - (void)subViewHidden:(BOOL)isHidden;
-
 @end

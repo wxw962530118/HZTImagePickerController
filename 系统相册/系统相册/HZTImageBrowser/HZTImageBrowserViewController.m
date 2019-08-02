@@ -21,16 +21,13 @@
 @property(nonatomic,strong)UIViewController * controller;
 /***/
 @property (nonatomic, assign) BOOL isFromPicker;
-/***/
-@property (nonatomic, strong) UIImageView * originImageView;
 @end
 
 @implementation HZTImageBrowserViewController
-- (instancetype)initWithUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originImageViews:(NSArray<UIImageView *>*)originImageViews selectPage:(NSInteger)selectPage originImageView:(UIImageView *)originImageView isFromPicker:(BOOL)isFromPicker{
+- (instancetype)initWithUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originImageViews:(NSArray<UIImageView *>*)originImageViews selectPage:(NSInteger)selectPage isFromPicker:(BOOL)isFromPicker{
     if (self = [super init]) {
         self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         self.transitioningDelegate = self;
-        self.originImageView = originImageView;
         self.isFromPicker = isFromPicker;
         self.browserModels = browserModels;
         self.originImageViews = originImageViews;
@@ -74,7 +71,7 @@
 #pragma mark --- lazy
 - (HZTImageBrowserMainView *)browserMainView {
     if (_browserMainView == nil) {
-        _browserMainView = [HZTImageBrowserMainView imageBrowserMainViewUrlStr:self.browserModels originImageViews:self.originImageViews selectPage:self.selectPage originImageView:self.originImageView isFromPicker:self.isFromPicker];
+        _browserMainView = [HZTImageBrowserMainView imageBrowserMainViewUrlStr:self.browserModels originImageViews:self.originImageViews selectPage:self.selectPage isFromPicker:self.isFromPicker];
         _browserMainView.delegate = self;
     }
     return _browserMainView;

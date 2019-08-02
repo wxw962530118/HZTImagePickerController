@@ -16,6 +16,5 @@
  @param selectPage 选中的是第几个
  @return 大图的controller
  */
-- (instancetype)initWithUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originImageViews:(NSArray<UIImageView *>*)originImageViews selectPage:(NSInteger)selectPage originImageView:(UIImageView *)originImageView isFromPicker:(BOOL)isFromPicker;
-
+- (instancetype)initWithUrlStr:(NSArray<HZTImageBrowserModel *>*)browserModels originImageViews:(NSArray<UIImageView *>*)originImageViews selectPage:(NSInteger)selectPage isFromPicker:(BOOL)isFromPicker;
 @end

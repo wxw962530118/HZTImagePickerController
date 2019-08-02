@@ -212,22 +212,26 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.indicatorView stopAnimating];
             [weakSelf.listView reloadData];
+            /**UICollectionView想要立即获取正确的visibleCells，需要主动触发layoutSubviews后，才进行获取*/
+            [weakSelf.listView layoutSubviews];
             /**默认滚动到最底部*/
             [weakSelf.listView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:weakSelf.listDataArray.count-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
             weakSelf.navigationItem.title = groupModel.name;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                 [weakSelf handleBroswerData];
-            });
+            /**主线程只有一个串行队列 在reloadData之后 做其他与列表相关的操作要在主队列执行||performBatchUpdates*/
+            [weakSelf.listView performBatchUpdates:nil completion:^(BOOL finished) {
+                [weakSelf handleBroswerData];
+            }];
         });
     });
 }
 
+#pragma mark --- 列表在ReloadData之后 初始化HZTImageBrowserManger
 -(void)handleBroswerData{
     self.imageBrowserManger = [HZTImageBrowserManger imageBrowserMangerWithUrlStr:[self getOriginImages] originImageViews:[self getOriginImageViews] originController:self isFromPicker:YES];
 }
 
 -(NSArray <UIImageView *>*)getOriginImageViews{
-    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
+    NSArray <HZTPhotoAlbumListCell *>* arr = [self sortedVisibleCells];
     NSMutableArray * tempArr = [NSMutableArray array];
     for (int i = 0; i< arr.count; i++) {
         HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)arr[i];
@@ -238,7 +242,7 @@
 
 -(NSArray <HZTImageBrowserModel *>*)getOriginImages{
     NSMutableArray * tempArr = [NSMutableArray array];
-    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
+    NSArray <HZTPhotoAlbumListCell *>* arr = [self sortedVisibleCells];
     for (int i = 0; i< arr.count; i++) {
         HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)arr[i];
         HZTImageBrowserModel * model = [HZTImageBrowserModel new];
@@ -284,12 +288,20 @@
 #pragma mark --- 进入预览页
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HZTPhotoAlbumListCell * cell = (HZTPhotoAlbumListCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
-    NSInteger index = [arr indexOfObject:cell];
-    NSLog(@"index:%ld",index);
-    //self.imageBrowserManger.originImageView = cell.coverImgView;
+    NSInteger index = [[self sortedVisibleCells] indexOfObject:cell];
     self.imageBrowserManger.selectPage = index;
     [self.imageBrowserManger showImageBrowser];
+}
+
+#pragma mark --- 将UICollectionView visibleCells 排序
+-(NSArray *)sortedVisibleCells{
+    NSArray <HZTPhotoAlbumListCell *>* arr = [self.listView visibleCells];
+    arr = [arr sortedArrayUsingComparator:^NSComparisonResult(HZTPhotoAlbumListCell *  obj1, HZTPhotoAlbumListCell * obj2) {
+        NSIndexPath * path1 = (NSIndexPath *)[self.listView indexPathForCell:obj1];
+        NSIndexPath * path2 = (NSIndexPath *)[self.listView indexPathForCell:obj2];
+        return [path1 compare:path2];
+    }];
+    return arr;
 }
 
 #pragma mark --- 进入预览页

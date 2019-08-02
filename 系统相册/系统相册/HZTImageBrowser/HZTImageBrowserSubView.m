@@ -17,14 +17,14 @@
 @property(nonatomic,strong)UIScrollView * subScrollView;
 @property(nonatomic,strong)UIImageView * subImageView;
 @property(nonatomic,assign)NSInteger touchFingerNumber;
-
+/**iCloud同步数据进度条*/
+@property (nonatomic, strong) UILabel * asyncProgressLabel;
 @end
 
 @implementation HZTImageBrowserSubView
 
 - (HZTImageBrowserSubView *)initWithFrame:(CGRect)frame ImageBrowserModel:(HZTImageBrowserModel *)imageBrowserModel {
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame]) {
         self.imageBrowserModel = imageBrowserModel;
         [self initView];
     }
@@ -34,18 +34,17 @@
 - (void)initView {
     [self addSubview:self.subScrollView];
     [self.subScrollView addSubview:self.subImageView];
-    //加入 点击事件 单击 与 双击
     UITapGestureRecognizer * singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     [self addGestureRecognizer:singleTap];
     UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
     doubleTap.numberOfTapsRequired = 2;
     [singleTap requireGestureRecognizerToFail:doubleTap];
-    [self addGestureRecognizer:doubleTap];    
+    [self addGestureRecognizer:doubleTap];
     _imageBrowserModel.bigScrollView = self.subScrollView;
     _imageBrowserModel.bigImageView = self.subImageView;
 }
 
--(void)congifModel{
+-(void)updateDataWithModel{
     __weak typeof (self)ws = self;
     if (_imageBrowserModel.urlStr) {
         /**网络资源预览*/
@@ -58,6 +57,7 @@
         /**本地图片预览*/
         [[HZTImageManager manager] requestImageDataForAsset:_imageBrowserModel.asset completion:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
             self.subImageView.image = [UIImage imageWithData:imageData];
+            self.asyncProgressLabel.hidden = YES;
             [self updateSubScrollViewSubImageView];
         } progressHandler:^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
             if (error) {
@@ -66,31 +66,29 @@
             }else{
                 progress = progress > 0.02 ? progress : 0.02;
                 NSNumber * num = [NSNumber numberWithDouble:progress * 100];
+                self.asyncProgressLabel.text = [NSString stringWithFormat:@"正在同步iColud%d%@",[num intValue],@"%"];
+                self.asyncProgressLabel.hidden = [num intValue] >= 100;
                 NSLog(@"downLoad from iCloud Progress:%.2f  present:%d",progress,[num intValue]);
             }
         }];
     }
 }
 
--(void)setSelectIndex:(NSInteger)selectIndex{
-    _selectIndex = selectIndex;
-    
-}
 
-//单击 退出
+/**单击 退出*/
 - (void)singleTapAction:(UITapGestureRecognizer *)singleTap {
     if ([self.delegate respondsToSelector:@selector(imageBrowserSubViewSingleTapWithModel:)]) {
         [self.delegate imageBrowserSubViewSingleTapWithModel:_imageBrowserModel];
     }
 }
 
-//双击 局部放大 或者 变成正常大小
+/**双击 局部放大 或者 变成正常大小*/
 - (void)doubleTapAction:(UITapGestureRecognizer *)doubleTap {
     if (self.subScrollView.zoomScale > 1.0) {
-        //已经放大过了 就变成正常大小
+        /**已经放大过了 就变成正常大小*/
         [self.subScrollView setZoomScale:1.0 animated:YES];
     } else {
-        //如果是正常大小 就 局部放大
+        /**如果是正常大小 就 局部放大*/
         CGPoint touchPoint = [doubleTap locationInView:self.subImageView];
         CGFloat maxZoomScale = self.subScrollView.maximumZoomScale;
         CGFloat width = self.frame.size.width / maxZoomScale;
@@ -99,24 +97,20 @@
     }
 }
 
-
 - (void)updateSubScrollViewSubImageView {
     [self.subScrollView setZoomScale:1.0 animated:NO];
-    
     CGFloat imageW = _imageBrowserModel.bigImageSize.width;
     CGFloat imageH = _imageBrowserModel.bigImageSize.height;
     CGFloat height =  imageH == 0 ? 0 : Screen_Width * imageH/imageW;
-
-    if (imageH/imageW > Screen_Height/Screen_Width) {
-        //长图
+    if (imageH/imageW > Screen_Height/Screen_Width) {/**长图*/
         self.subImageView.frame =CGRectMake(0, 0, Screen_Width, height);
-    } else {
+    }else{
         self.subImageView.frame =CGRectMake(0, Screen_Height/2 - height/2, Screen_Width, height);
     }
     self.subScrollView.contentSize = CGSizeMake(Screen_Width, height);
 }
 
-#pragma mark -scrollView delegate
+#pragma mark --- scrollView delegate
 - (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.subImageView;
 }
@@ -135,7 +129,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffsetY = scrollView.contentOffset.y;
-    //只有是一根手指事件才做出响应。
+    /**只有是一根手指事件才做出响应*/
     if (contentOffsetY < 0 && _touchFingerNumber == 1) {
         [self changeSizeCenterY:contentOffsetY];
     }
@@ -144,7 +138,7 @@
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
     CGFloat contentOffsetY = scrollView.contentOffset.y;
     if ((contentOffsetY<0 && _touchFingerNumber==1) && (velocity.y<0 && fabs(velocity.y)>fabs(velocity.x))) {
-        //如果是向下滑动才触发消失的操作。
+        /**如果是向下滑动才触发消失的操作*/
         if ([self.delegate respondsToSelector:@selector(imageBrowserSubViewSingleTapWithModel:)]) {
             [self.delegate imageBrowserSubViewSingleTapWithModel:_imageBrowserModel];
         }
@@ -159,7 +153,7 @@
 }
 
 - (void)changeSizeCenterY:(CGFloat)contentOffsetY {
-    //contentOffsetY 为负值
+    /**contentOffsetY 为负值*/
     CGFloat multiple = (Screen_Height + contentOffsetY*1.75)/Screen_Height;
     if ([self.delegate respondsToSelector:@selector(imageBrowserSubViewTouchMoveChangeMainViewAlpha:)]) {
         [self.delegate imageBrowserSubViewTouchMoveChangeMainViewAlpha:multiple];
@@ -169,26 +163,26 @@
     self.subScrollView.center = CGPointMake(Screen_Width/2, Screen_Height/2 - contentOffsetY*0.5);
 }
 
-#pragma mark -lazy
+#pragma mark --- lazy
 - (UIScrollView *)subScrollView {
     if (_subScrollView == nil) {
         _subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height)];
         _subScrollView.delegate = self;
         _subScrollView.bouncesZoom = YES;
-        _subScrollView.maximumZoomScale = 2.5;//最大放大倍数
-        _subScrollView.minimumZoomScale = 1.0;//最小缩小倍数
+        _subScrollView.maximumZoomScale = 2.5;/**最大放大倍数*/
+        _subScrollView.minimumZoomScale = 1.0;/**最小缩小倍数*/
         _subScrollView.multipleTouchEnabled = YES;
         _subScrollView.scrollsToTop = NO;
         _subScrollView.contentSize = CGSizeMake(Screen_Width, Screen_Height);
         _subScrollView.userInteractionEnabled = YES;
         _subScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _subScrollView.delaysContentTouches = NO;//默认yes  设置NO则无论手指移动的多么快，始终都会将触摸事件传递给内部控件；
-        _subScrollView.canCancelContentTouches = NO; // 默认是yes
-        _subScrollView.alwaysBounceVertical = YES;//设置上下回弹
+        _subScrollView.delaysContentTouches = NO;/**默认yes设置NO则无论手指移动的多么快 始终都会将触摸事件传递给内部控件*/
+        _subScrollView.canCancelContentTouches = NO; /**默认是yes*/
+        _subScrollView.alwaysBounceVertical = YES;/**设置上下回弹*/
         _subScrollView.showsVerticalScrollIndicator = NO;
         _subScrollView.showsHorizontalScrollIndicator = NO;
         if (@available(iOS 11.0, *)) {
-            //表示只在ios11以上的版本执行
+            /**表示只在ios11以上的版本执行*/
             _subScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
     }
@@ -201,12 +195,17 @@
     }
     return _subImageView;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+-(UILabel *)asyncProgressLabel{
+    if (!_asyncProgressLabel) {
+        _asyncProgressLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _asyncProgressLabel.font = [UIFont systemFontOfSize:18];
+        _asyncProgressLabel.textColor = [UIColor whiteColor];
+        _asyncProgressLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:_asyncProgressLabel];
+        [self bringSubviewToFront:_asyncProgressLabel];
+    }
+    return _asyncProgressLabel;
 }
-*/
 
 @end

@@ -12,6 +12,9 @@
 #import "UIImageView+WebCache.h"
 #import "HZTImageManager.h"
 #import "HZTToastView.h"
+#import "HZTImageBrowserHeader.h"
+#import "AVPlayerViewController+HZTPlayVideoWindow.h"
+#import "MPMoviePlayerViewController+HZTPlayVideoWindow.h"
 @interface HZTImageBrowserSubView ()<UIScrollViewDelegate>
 @property(nonatomic,strong)HZTImageBrowserModel * imageBrowserModel;
 @property(nonatomic,strong)UIScrollView * subScrollView;
@@ -19,6 +22,10 @@
 @property(nonatomic,assign)NSInteger touchFingerNumber;
 /**iCloud同步数据进度条*/
 @property (nonatomic, strong) UILabel * asyncProgressLabel;
+/*视频标记**/
+@property (nonatomic, strong) UIImageView * videoFlagView;
+/**你的小菊花*/
+@property (nonatomic, strong) UIActivityIndicatorView  * indicatorView;
 @end
 
 @implementation HZTImageBrowserSubView
@@ -34,6 +41,7 @@
 - (void)initView {
     [self addSubview:self.subScrollView];
     [self.subScrollView addSubview:self.subImageView];
+    [self.subScrollView addSubview:self.videoFlagView];
     UITapGestureRecognizer * singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     [self addGestureRecognizer:singleTap];
     UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
@@ -49,12 +57,11 @@
     if (_imageBrowserModel.urlStr) {
         /**网络资源预览*/
         [self.subImageView sd_setImageWithURL:[NSURL URLWithString:_imageBrowserModel.urlStr] placeholderImage:_imageBrowserModel.smallImageView.image completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            if (!error) {
-                [ws updateSubScrollViewSubImageView];
-            }
+            if (!error) [ws updateSubScrollViewSubImageView];
         }];
     }else{
         /**本地图片预览*/
+        self.videoFlagView.hidden = _imageBrowserModel.asset.mediaType != PHAssetMediaTypeVideo;
         [[HZTImageManager manager] requestImageDataForAsset:_imageBrowserModel.asset completion:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
             self.subImageView.image = [UIImage imageWithData:imageData];
             self.asyncProgressLabel.hidden = YES;
@@ -73,7 +80,6 @@
         }];
     }
 }
-
 
 /**单击 退出*/
 - (void)singleTapAction:(UITapGestureRecognizer *)singleTap {
@@ -163,22 +169,27 @@
     self.subScrollView.center = CGPointMake(Screen_Width/2, Screen_Height/2 - contentOffsetY*0.5);
 }
 
-#pragma mark --- lazy
+#pragma mark --- UIScrollView
 - (UIScrollView *)subScrollView {
     if (_subScrollView == nil) {
         _subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height)];
         _subScrollView.delegate = self;
         _subScrollView.bouncesZoom = YES;
-        _subScrollView.maximumZoomScale = 2.5;/**最大放大倍数*/
-        _subScrollView.minimumZoomScale = 1.0;/**最小缩小倍数*/
+        /**最大放大倍数*/
+        _subScrollView.maximumZoomScale = 2.5;
+        /**最小缩小倍数*/
+        _subScrollView.minimumZoomScale = 1.0;
         _subScrollView.multipleTouchEnabled = YES;
         _subScrollView.scrollsToTop = NO;
         _subScrollView.contentSize = CGSizeMake(Screen_Width, Screen_Height);
         _subScrollView.userInteractionEnabled = YES;
         _subScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _subScrollView.delaysContentTouches = NO;/**默认yes设置NO则无论手指移动的多么快 始终都会将触摸事件传递给内部控件*/
-        _subScrollView.canCancelContentTouches = NO; /**默认是yes*/
-        _subScrollView.alwaysBounceVertical = YES;/**设置上下回弹*/
+        /**默认yes设置NO则无论手指移动的多么快 始终都会将触摸事件传递给内部控件*/
+        _subScrollView.delaysContentTouches = NO;
+        /**默认是yes*/
+        _subScrollView.canCancelContentTouches = NO;
+        /**设置上下回弹*/
+        _subScrollView.alwaysBounceVertical = YES;
         _subScrollView.showsVerticalScrollIndicator = NO;
         _subScrollView.showsHorizontalScrollIndicator = NO;
         if (@available(iOS 11.0, *)) {
@@ -188,6 +199,7 @@
     }
     return _subScrollView;
 }
+
 - (UIImageView *)subImageView {
     if (_subImageView == nil) {
         _subImageView = [[UIImageView alloc] init];
@@ -206,6 +218,57 @@
         [self bringSubviewToFront:_asyncProgressLabel];
     }
     return _asyncProgressLabel;
+}
+
+-(UIImageView *)videoFlagView{
+    if (!_videoFlagView) {
+        CGFloat imgWH = 64;
+        _videoFlagView = [[UIImageView alloc] initWithFrame:CGRectMake((Screen_Width-imgWH)/2, (Screen_Height-imgWH)/2,imgWH, imgWH)];
+        [_videoFlagView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(preViewVideo)]];
+        _videoFlagView.userInteractionEnabled = YES;
+        _videoFlagView.image = [UIImage imageNamed:@"growth_video_flag"];
+    }
+    return _videoFlagView;
+}
+
+-(UIActivityIndicatorView *)indicatorView{
+    if (!_indicatorView) {
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 100)/2, ([UIScreen mainScreen].bounds.size.height - 100) /2, 100, 100);
+        [[UIApplication sharedApplication].delegate.window addSubview:_indicatorView];
+    }
+    return _indicatorView;
+}
+
+#pragma mark --- 视频预览
+-(void)preViewVideo{
+    __weak typeof(self) weakSelf = self;
+    [self.indicatorView startAnimating];
+    PHVideoRequestOptions * options = [[PHVideoRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    options.version = PHImageRequestOptionsVersionCurrent;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+    PHImageManager * manager = [PHImageManager defaultManager];
+    [manager requestAVAssetForVideo:_imageBrowserModel.asset
+                            options:options
+                      resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                          /**asset 类型为 AVURLAsset  为此资源的fileURL*/
+                          /**<AVURLAsset: 0x283386e60, URL = file:///var/mobile/Media/DCIM/100APPLE/IMG_0049.MOV>*/
+                          AVURLAsset *urlAsset = (AVURLAsset *)asset;
+                          NSLog(@"urlAssetUrl:%@",urlAsset.URL);
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              if (urlAsset.URL) {
+                                  if (@available(iOS 9.0, *)) {
+                                      AVPlayerViewController *playerController = [[AVPlayerViewController alloc] init];
+                                      [playerController playVideoWithURL:urlAsset.URL];
+                                  }else {
+                                      MPMoviePlayerViewController *playerController = [[MPMoviePlayerViewController alloc] initWithContentURL:urlAsset.URL];
+                                      [playerController show];
+                                  }
+                              }
+                              [weakSelf.indicatorView stopAnimating];
+                          });
+                      }];
 }
 
 @end

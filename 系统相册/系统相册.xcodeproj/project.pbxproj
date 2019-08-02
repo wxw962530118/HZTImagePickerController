@@ -77,6 +77,8 @@
 		AC96827A22F2CB2D000343B5 /* HZTImageBrowserTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC96827122F2CB2C000343B5 /* HZTImageBrowserTranslation.m */; };
 		AC96827B22F2CB2D000343B5 /* HZTImageBrowserManger.m in Sources */ = {isa = PBXBuildFile; fileRef = AC96827322F2CB2C000343B5 /* HZTImageBrowserManger.m */; };
 		AC96827D22F2D0D3000343B5 /* test_01.png in Resources */ = {isa = PBXBuildFile; fileRef = AC96827C22F2D0D3000343B5 /* test_01.png */; };
+		ACA4042E22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA4042D22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m */; };
+		ACA4043122F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA4043022F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,6 +210,10 @@
 		AC96827322F2CB2C000343B5 /* HZTImageBrowserManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZTImageBrowserManger.m; sourceTree = "<group>"; };
 		AC96827422F2CB2C000343B5 /* HZTImageBrowserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZTImageBrowserModel.h; sourceTree = "<group>"; };
 		AC96827C22F2D0D3000343B5 /* test_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = test_01.png; path = ../../../../../test_01.png; sourceTree = "<group>"; };
+		ACA4042C22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerViewController+HZTPlayVideoWindow.h"; sourceTree = "<group>"; };
+		ACA4042D22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerViewController+HZTPlayVideoWindow.m"; sourceTree = "<group>"; };
+		ACA4042F22F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AVPlayerViewController+HZTPlayVideoWindow.h"; sourceTree = "<group>"; };
+		ACA4043022F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AVPlayerViewController+HZTPlayVideoWindow.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +263,10 @@
 				AC9681D122F28C70000343B5 /* HZTToastView.h */,
 				AC9681D222F28C70000343B5 /* HZTToastView.m */,
 				AC96826422F2C931000343B5 /* HZTImagePickerHeader.h */,
+				ACA4042F22F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.h */,
+				ACA4043022F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m */,
+				ACA4042C22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.h */,
+				ACA4042D22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -567,6 +577,7 @@
 				AC96824D22F2C8DC000343B5 /* UIImage+ForceDecode.m in Sources */,
 				AC96825922F2C8DC000343B5 /* SDWebImageDownloaderOperation.m in Sources */,
 				AC96825E22F2C8DC000343B5 /* SDWebImageGIFCoder.m in Sources */,
+				ACA4042E22F426F500F72269 /* MPMoviePlayerViewController+HZTPlayVideoWindow.m in Sources */,
 				AC0E16D922EFEC5D009A9F82 /* HZTMacroNotifications.m in Sources */,
 				AC0E16DD22EFEC5D009A9F82 /* HZTPhotoGroupListController.m in Sources */,
 				AC96825122F2C8DC000343B5 /* UIImage+MultiFormat.m in Sources */,
@@ -612,6 +623,7 @@
 				AC96825022F2C8DC000343B5 /* UIImage+GIF.m in Sources */,
 				AC96825A22F2C8DC000343B5 /* SDWebImageTransition.m in Sources */,
 				AC0393BB22F135C7003B6823 /* HZTPhotoGroupModel.m in Sources */,
+				ACA4043122F4273E00F72269 /* AVPlayerViewController+HZTPlayVideoWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
